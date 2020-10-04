@@ -1,0 +1,6 @@
+CD TO THE RIGHT FOLDER
+
+terminal 1: npx react-native start
+
+terminal 2: adb -s a3ddc49f reverse tcp:8081 tcp:8081
+terminal 2: npx react-native run-android
