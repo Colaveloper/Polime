@@ -3,6 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import DailyData from './DailyData';
 
 class HomeScreen extends React.Component {
   state = {
@@ -15,21 +16,22 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.mainContainer}>
         <Text style={styles.counter}>Counter: {counter}</Text>
-        <TouchableOpacity style={styles.fab} onPress={this.onIncrement}>
+        <TouchableOpacity style={styles.fab} onPress={this.goToDailyData}>
           <Icon name="plus" size={30} color="#150" />
         </TouchableOpacity>
       </View>
     );
   }
 
-  onIncrement = () => {
+  goToDailyData = () => {
+    this.props.navigation.navigate('DailyData');
     this.setState({
       counter: this.state.counter + 1,
     });
   };
 }
 
-//this is the HEADER
+//this are the screens of Polime
 const AppNavigator = createStackNavigator({
   Home: {
     screen: HomeScreen,
@@ -38,6 +40,12 @@ const AppNavigator = createStackNavigator({
       headerTitleStyle: {
         textAlign: 'center',
       },
+    }),
+  },
+  DailyData: {
+    screen: DailyData,
+    navigationOptions: () => ({
+      title: 'Day Review',
     }),
   },
 });
