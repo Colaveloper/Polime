@@ -2,9 +2,12 @@ CD TO THE RIGHT FOLDER (cd POLIME)
 
 then paste and run:
 
-in terminal 1: npx react-native start
+in terminal 1: 
+npx react-native start
 
-in terminal 2: adb -s a3ddc49f reverse tcp:8081 tcp:8081
+in terminal 2: 
+adb -s a3ddc49f reverse tcp:8081 tcp:8081
 ("a3ddc49f" is the ID of my mobile ONLY)
 
-in terminal 2: npx react-native run-android
+in terminal 2: 
+npx react-native run-android
