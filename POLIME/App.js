@@ -1,59 +1,15 @@
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
 import DailyData from './DailyData';
 
-class HomeScreen extends React.Component {
-  state = {
-    counter: 0,
-  };
-
+export default class App extends React.Component {
   render() {
-    const counter = this.state.counter;
-
     return (
       <View style={styles.mainContainer}>
-        <Text style={styles.counter}>Counter: {counter}</Text>
-        <TouchableOpacity style={styles.fab} onPress={this.goToDailyData}>
-          <Icon name="plus" size={30} color="#150" />
-        </TouchableOpacity>
+        <DailyData />
       </View>
     );
   }
-
-  goToDailyData = () => {
-    this.props.navigation.navigate('DailyData');
-    this.setState({
-      counter: this.state.counter + 1,
-    });
-  };
-}
-
-//this are the screens of Polime
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: () => ({
-      title: 'Polime',
-      headerTitleStyle: {
-        textAlign: 'center',
-      },
-    }),
-  },
-  DailyData: {
-    screen: DailyData,
-    navigationOptions: () => ({
-      title: 'Day Review',
-    }),
-  },
-});
-
-const AppContainer = createAppContainer(AppNavigator);
-
-export default function App() {
-  return <AppContainer />;
 }
 
 const styles = StyleSheet.create({
