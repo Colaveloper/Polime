@@ -1,13 +1,29 @@
 import React from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import DailyData from './DailyData';
+
+let BackgroundImage__URL = {
+  uri:
+    'https://i.pinimg.com/736x/33/64/1e/33641e566a3cb829a8a53669a734d7aa.jpg',
+};
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.mainContainer}>
-        <DailyData />
-      </View>
+      <ImageBackground
+        source={BackgroundImage__URL}
+        style={{width: '100%', height: '100%'}}>
+        <SafeAreaView style={styles.mainContainer}>
+          <DailyData />
+        </SafeAreaView>
+      </ImageBackground>
     );
   }
 }
