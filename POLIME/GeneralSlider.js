@@ -17,7 +17,7 @@ export default class GeneralSlider extends Component {
           this.setState({show: !this.state.show});
         }}>
         <Text style={styles.text} onPress={console.log('')}>
-          {this.props.type}: {this.state.value}
+          {this.props.type}: {this.state.valueOne + this.state.valueTwo}
         </Text>
         <Slider
           type={this.props.type}
