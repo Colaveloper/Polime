@@ -14,11 +14,11 @@ export default class DailyData extends Component {
     this.handler = this.handler.bind(this);
   }
 
-  handler() {
+  handler = () => {
     this.setState({
       showOnlySlider: 'clicked slider name',
     });
-  }
+  };
 
   render() {
     return (
@@ -26,13 +26,15 @@ export default class DailyData extends Component {
         <Text style={{color: 'white'}} onPress={this.handler}>
           {this.state.showOnlySlider}
         </Text>
+
         <GeneralSlider
           thumbColor="#02b881"
           type="active"
           showOnlySlider={this.state.showOnlySlider}
           handler={this.handler}
-          onClick={this.handler}
+          onPress={this.handler}
         />
+
         <GeneralSlider
           thumbColor="#1a09d6"
           type="creative"

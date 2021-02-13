@@ -12,8 +12,17 @@ export default class GeneralSlider extends Component {
     value1: 0,
     value2: 0,
     vauleMiddleman: 0,
-    show: false,
+    expand: false,
   };
+
+  // constructor(props) {
+  //   super(props);
+  //   this.pressedSliderHandler = this.pressedSliderHandler.bind(this);
+  // }
+
+  // pressedSliderHandler(pressedSlider) {
+  //   this.props.onSliderPress(pressedSlider.target.value)
+  // }
 
   render() {
     if (
@@ -21,59 +30,49 @@ export default class GeneralSlider extends Component {
       this.props.showOnlySlider === 'all'
     ) {
       return (
-        <Pressable
-          onPress={() => {
-            this.setState({show: !this.state.show});
-            this.props.handler;
-          }}>
-          <Card>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.text}>
-                {this.props.type}: {this.state.value1 + this.state.value2}
-              </Text>
-              <Slider
-                type={this.props.type}
-                style={styles.highSlider}
-                disabled={1}
-                minimumValue={0}
-                maximumValue={this.state.maxValue1 + this.state.maxValue2}
-                thumbTintColor={this.props.thumbColor}
-                minimumTrackTintColor="#000000"
-                maximumTrackTintColor="#b8b8b8"
-                value={this.state.value1 + this.state.value2}
-              />
-            </View>
+        <Card bordered>
+          <View style={{flexDirection: 'row'}}>
+            <Text
+              style={styles.text}
+              onPress={() => {
+                this.setState({expand: !this.state.expand});
+                this.props.handler;
+              }}>
+              {this.props.type}: {this.state.value1 + this.state.value2}
+            </Text>
+            <Slider
+              type={this.props.type}
+              style={styles.highSlider}
+              disabled={1}
+              maximumValue={this.state.maxValue1 + this.state.maxValue2}
+              thumbTintColor={this.props.thumbColor}
+              value={this.state.value1 + this.state.value2}
+            />
+          </View>
 
-            {this.state.show && (
-              <>
-                <Slider
-                  style={styles.slider}
-                  minimumValue={0}
-                  maximumValue={this.state.maxValue1}
-                  step={1}
-                  thumbTintColor={this.props.thumbColor}
-                  minimumTrackTintColor="#000000"
-                  maximumTrackTintColor="#b8b8b8"
-                  onValueChange={(newValue) =>
-                    this.setState({value1: newValue})
-                  }
-                />
-                <Slider
-                  style={styles.slider}
-                  minimumValue={0}
-                  maximumValue={this.state.maxValue2}
-                  step={1}
-                  thumbTintColor={this.props.thumbColor}
-                  minimumTrackTintColor="#000000"
-                  maximumTrackTintColor="#b8b8b8"
-                  onValueChange={(newValue) =>
-                    this.setState({value2: newValue})
-                  }
-                />
-              </>
-            )}
-          </Card>
-        </Pressable>
+          {this.state.expand && (
+            <>
+              <Slider
+                style={styles.slider}
+                maximumValue={this.state.maxValue1}
+                step={1}
+                thumbTintColor={this.props.thumbColor}
+                onValueChange={(newValue) => this.setState({value1: newValue})}
+                value={this.state.value1}
+                minimumTrackTintColor="#000000"
+              />
+              <Slider
+                style={styles.slider}
+                maximumValue={this.state.maxValue2}
+                step={1}
+                thumbTintColor={this.props.thumbColor}
+                onValueChange={(newValue) => this.setState({value2: newValue})}
+                value={this.state.value2}
+                minimumTrackTintColor="#000000"
+              />
+            </>
+          )}
+        </Card>
       );
     } else {
       return null;
