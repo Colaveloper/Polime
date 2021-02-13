@@ -19,7 +19,8 @@ export default class App extends React.Component {
     return (
       <ImageBackground
         source={BackgroundImage__URL}
-        style={{width: '100%', height: '100%'}}>
+        style={{width: '100%', height: '100%'}}
+        imageStyle={{opacity: 0.7}}>
         <SafeAreaView style={styles.mainContainer}>
           <DailyData />
         </SafeAreaView>
