@@ -11,18 +11,7 @@ export default class GeneralSlider extends Component {
     //to inherit
     value1: 0,
     value2: 0,
-    vauleMiddleman: 0,
-    expand: false,
   };
-
-  // constructor(props) {
-  //   super(props);
-  //   this.pressedSliderHandler = this.pressedSliderHandler.bind(this);
-  // }
-
-  // pressedSliderHandler(pressedSlider) {
-  //   this.props.onSliderPress(pressedSlider.target.value)
-  // }
 
   render() {
     if (
@@ -32,14 +21,10 @@ export default class GeneralSlider extends Component {
       return (
         <Card bordered>
           <View style={{flexDirection: 'row'}}>
-            <Text
-              style={styles.text}
-              onPress={() => {
-                this.setState({expand: !this.state.expand});
-                this.props.handler;
-              }}>
+            <Text style={styles.text} onPress={this.props.focusOnMe}>
               {this.props.type}: {this.state.value1 + this.state.value2}
             </Text>
+
             <Slider
               type={this.props.type}
               style={styles.highSlider}
@@ -50,7 +35,7 @@ export default class GeneralSlider extends Component {
             />
           </View>
 
-          {this.state.expand && (
+          {this.props.showOnlySlider === this.props.type && (
             <>
               <Slider
                 style={styles.slider}

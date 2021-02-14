@@ -5,62 +5,65 @@ import GeneralSlider from './GeneralSlider';
 
 export default class DailyData extends Component {
   state = {
-    showOnlySlider: 'creative',
+    showOnlySlider: 'all',
   };
 
   constructor(props) {
     super(props);
 
-    this.handler = this.handler.bind(this);
+    this.focusOnMe = this.focusOnMe.bind(this.props.type);
   }
 
-  handler = () => {
-    this.setState({
-      showOnlySlider: 'clicked slider name',
-    });
+  focusOnMe = (e) => {
+    if (
+      e.target._internalFiberInstanceHandleDEV.child.memoizedProps !==
+      this.state.showOnlySlider
+    ) {
+      this.setState({
+        showOnlySlider:
+          e.target._internalFiberInstanceHandleDEV.child.memoizedProps,
+      });
+    } else {
+      this.setState({
+        showOnlySlider: 'all',
+      });
+    }
   };
 
   render() {
     return (
       <>
-        <Text style={{color: 'white'}} onPress={this.handler}>
-          {this.state.showOnlySlider}
-        </Text>
-
         <GeneralSlider
           thumbColor="#02b881"
           type="active"
           showOnlySlider={this.state.showOnlySlider}
-          handler={this.handler}
-          onPress={this.handler}
+          focusOnMe={this.focusOnMe}
         />
 
         <GeneralSlider
           thumbColor="#1a09d6"
           type="creative"
           showOnlySlider={this.state.showOnlySlider}
-          handler={this.handler}
+          focusOnMe={this.focusOnMe}
         />
         <GeneralSlider
           thumbColor="#d60954"
           type="learning"
           showOnlySlider={this.state.showOnlySlider}
+          focusOnMe={this.focusOnMe}
         />
         <GeneralSlider
           thumbColor="#d68409"
           type="social"
           showOnlySlider={this.state.showOnlySlider}
+          focusOnMe={this.focusOnMe}
         />
         <GeneralSlider
           thumbColor="#d6f000"
           type="self-caring"
           showOnlySlider={this.state.showOnlySlider}
+          focusOnMe={this.focusOnMe}
         />
-        <Button
-          title="show all sliders"
-          onPress={() => {
-            this.setState({showOnlySlider: 'all'});
-          }}></Button>
       </>
     );
   }
