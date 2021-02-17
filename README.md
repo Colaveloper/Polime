@@ -43,3 +43,5 @@ The probable division will be 10-10
 Challenges last for 5 weeks (too much?) and a new one
 starts each sunday. eg the first could be about Social,
 a week later starts Self Care and so on
+
+Take a look to the mock-up of Polime -> https://xd.adobe.com/view/0cb75eac-5921-401e-bf37-ede1bc09aba7-59e4/
