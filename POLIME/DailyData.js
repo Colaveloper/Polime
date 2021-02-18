@@ -50,18 +50,15 @@ export default class DailyData extends Component {
   constructor(props) {
     super(props);
 
-    this.focusOnMe = this.focusOnMe.bind(this.props.type);
+    this.focusOnMe = this.focusOnMe.bind(this);
   }
 
-  focusOnMe = (e) => {
-    if (
-      e.target._internalFiberInstanceHandleDEV.child.memoizedProps !==
-      this.state.showOnlySlider
-    ) {
+  focusOnMe = (type) => {
+    if (type !== this.state.showOnlySlider) {
       this.setState({
-        showOnlySlider:
-          e.target._internalFiberInstanceHandleDEV.child.memoizedProps,
+        showOnlySlider: type,
       });
+      console.log(type);
     } else {
       this.setState({
         showOnlySlider: 'all',
