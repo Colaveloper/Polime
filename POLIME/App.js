@@ -46,24 +46,10 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: 30,
     width: '100%',
     height: '100%',
     backgroundColor: '#000000',
-  },
-  counter: {
-    fontSize: 25,
-  },
-  fab: {
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.3)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 15,
-    right: 15,
-    height: 60,
-    width: 60,
-    borderRadius: 100,
   },
 });
