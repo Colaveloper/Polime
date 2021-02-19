@@ -9,8 +9,8 @@ export default class GeneralSlider extends Component {
     maxValue1: 10,
     maxValue2: 10,
     //to inherit
-    value1: 0,
-    value2: 0,
+    value1: 0.5,
+    value2: 0.5,
   };
 
   render() {
@@ -29,20 +29,17 @@ export default class GeneralSlider extends Component {
                 style={styles.highSlider}
                 disabled={true}
                 maximumValue={this.state.maxValue1 + this.state.maxValue2}
-                thumbTintColor={this.props.thumbColor}
+                thumbTintColor={'rgba(0, 0, 0, 0)'}
                 value={this.state.value1 + this.state.value2}
-                animateTransitions={true}
-                animationType={'spring'}
-                useNativeDriver={false}
+                //animateTransitions={true}
                 minimumTrackTintColor={this.props.thumbColor}
+                maximumTrackTintColor={'#D9D9D9'}
                 trackStyle={{
                   height: 15,
-                  borderRadius: 15,
+                  borderRadius: 10,
                 }}
                 thumbStyle={{
-                  height: 15,
-                  width: 20,
-                  borderRadius: 15,
+                  width: 0,
                 }}
               />
             </View>
@@ -53,38 +50,38 @@ export default class GeneralSlider extends Component {
                   style={styles.slider}
                   maximumValue={this.state.maxValue1}
                   step={1}
-                  thumbTintColor={this.props.thumbColor}
+                  thumbTintColor={'rgba(0, 0, 0, 0)'}
                   value={this.state.value1}
                   onValueChange={(value1) => this.setState({value1})}
+                  allowTouchTrack={true}
                   thumbTouchSize={{width: 100, height: 100}} //?
                   minimumTrackTintColor={this.props.thumbColor}
+                  maximumTrackTintColor={'#D9D9D9'}
                   trackStyle={{
                     height: 30,
-                    borderRadius: 30,
+                    borderRadius: 10,
                   }}
                   thumbStyle={{
-                    height: 30,
-                    width: 40,
-                    borderRadius: 30,
+                    width: 0,
                   }}
                 />
                 <Slider
                   style={styles.slider}
                   maximumValue={this.state.maxValue2}
                   step={1}
-                  thumbTintColor={this.props.thumbColor}
+                  thumbTintColor={'rgba(0, 0, 0, 0)'}
                   value={this.state.value2}
                   onValueChange={(value2) => this.setState({value2})}
+                  allowTouchTrack={true}
                   thumbTouchSize={{width: 100, height: 100}} //?
                   minimumTrackTintColor={this.props.thumbColor}
+                  maximumTrackTintColor={'#D9D9D9'}
                   trackStyle={{
                     height: 30,
-                    borderRadius: 30,
+                    borderRadius: 10,
                   }}
                   thumbStyle={{
-                    height: 30,
-                    width: 40,
-                    borderRadius: 30,
+                    width: 0,
                   }}
                 />
               </>
@@ -99,7 +96,7 @@ export default class GeneralSlider extends Component {
 }
 
 const styles = StyleSheet.create({
-  highSlider: {width: 230, height: 50, marginHorizontal: 20},
+  highSlider: {width: 250, height: 50, marginHorizontal: 20},
   slider: {width: 330, height: 50, marginHorizontal: 20},
   text: {
     fontSize: 14,

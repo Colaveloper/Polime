@@ -9,22 +9,35 @@ import {
 } from 'react-native';
 import DailyData from './DailyData';
 
-let BackgroundImage__URL = {
-  uri:
-    'https://i.pinimg.com/736x/33/64/1e/33641e566a3cb829a8a53669a734d7aa.jpg',
-};
-
 export default class App extends React.Component {
+  state = {
+    showOnlySlider: 'all',
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.focusOnMe = this.focusOnMe.bind(this);
+  }
+
+  focusOnMe = (type) => {
+    if (type !== this.state.showOnlySlider) {
+      this.setState({
+        showOnlySlider: type,
+      });
+    }
+  };
+
   render() {
     return (
-      <ImageBackground
-        source={BackgroundImage__URL}
-        style={{width: '100%', height: '100%'}}
-        imageStyle={{opacity: 0.7}}>
-        <SafeAreaView style={styles.mainContainer}>
-          <DailyData />
-        </SafeAreaView>
-      </ImageBackground>
+      <SafeAreaView
+        style={styles.mainContainer}
+        onStartShouldSetResponder={() => this.focusOnMe('all')}>
+        <DailyData
+          showOnlySlider={this.state.showOnlySlider}
+          focusOnMe={this.focusOnMe}
+        />
+      </SafeAreaView>
     );
   }
 }
@@ -34,6 +47,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#000000',
   },
   counter: {
     fontSize: 25,

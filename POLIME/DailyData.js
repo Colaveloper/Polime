@@ -43,62 +43,39 @@ var active = {
 };
 
 export default class DailyData extends Component {
-  state = {
-    showOnlySlider: 'all',
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.focusOnMe = this.focusOnMe.bind(this);
-  }
-
-  focusOnMe = (type) => {
-    if (type !== this.state.showOnlySlider) {
-      this.setState({
-        showOnlySlider: type,
-      });
-      console.log(type);
-    } else {
-      this.setState({
-        showOnlySlider: 'all',
-      });
-    }
-  };
-
   render() {
     return (
       <>
         <GeneralSlider
-          thumbColor="#02b881"
+          thumbColor="#79D81A"
           type="active"
-          showOnlySlider={this.state.showOnlySlider}
-          focusOnMe={this.focusOnMe}
+          showOnlySlider={this.props.showOnlySlider}
+          focusOnMe={this.props.focusOnMe}
         />
 
         <GeneralSlider
-          thumbColor="#1a09d6"
+          thumbColor="#47C0F4"
           type="creative"
-          showOnlySlider={this.state.showOnlySlider}
-          focusOnMe={this.focusOnMe}
+          showOnlySlider={this.props.showOnlySlider}
+          focusOnMe={this.props.focusOnMe}
         />
         <GeneralSlider
-          thumbColor="#d60954"
+          thumbColor="#EC553E"
           type="learning"
-          showOnlySlider={this.state.showOnlySlider}
-          focusOnMe={this.focusOnMe}
+          showOnlySlider={this.props.showOnlySlider}
+          focusOnMe={this.props.focusOnMe}
         />
         <GeneralSlider
-          thumbColor="#d68409"
+          thumbColor="#E56CF3"
           type="social"
-          showOnlySlider={this.state.showOnlySlider}
-          focusOnMe={this.focusOnMe}
+          showOnlySlider={this.props.showOnlySlider}
+          focusOnMe={this.props.focusOnMe}
         />
         <GeneralSlider
-          thumbColor="#d6f000"
+          thumbColor="#E1BD5B"
           type="self-caring"
-          showOnlySlider={this.state.showOnlySlider}
-          focusOnMe={this.focusOnMe}
+          showOnlySlider={this.props.showOnlySlider}
+          focusOnMe={this.props.focusOnMe}
         />
       </>
     );
