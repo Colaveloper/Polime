@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, Pressable, View} from 'react-native';
+import {Animated, StyleSheet, Text, Pressable, View} from 'react-native';
 import Slider from 'react-native-slider';
 
 export default class GeneralSlider extends Component {
   state = {
     //to inherit
-    maxValue1: 10,
-    maxValue2: 10,
+    maxGoalScore: 10,
+    maxDefaultScore: 10,
     //to inherit
 
     //to make 0 somehow, without destroyng graphics
     //COULDFIX: setting different thumbStyle when value = 0
-    value1: 0.5,
-    value2: 0.5,
+    goalScore: 0.5,
+    defaultScore: 0.5,
   };
 
   render() {
@@ -25,7 +25,7 @@ export default class GeneralSlider extends Component {
           style={[
             styles.card,
             this.props.showOnlySlider === this.props.type
-              ? {height: '100%', marginTop: -60}
+              ? {height: '80%', marginTop: -60}
               : null,
           ]}
           onPress={() => this.props.focusOnMe(this.props.type)}>
@@ -33,9 +33,9 @@ export default class GeneralSlider extends Component {
             type={this.props.type}
             style={styles.slider}
             disabled={true}
-            maximumValue={this.state.maxValue1 + this.state.maxValue2}
+            maximumValue={this.state.maxGoalScore + this.state.maxDefaultScore}
             thumbTintColor={'rgba(0, 0, 0, 0)'}
-            value={this.state.value1 + this.state.value2}
+            value={this.state.goalScore + this.state.defaultScore}
             //animateTransitions={true}
             minimumTrackTintColor={this.props.thumbColor}
             maximumTrackTintColor={'#D9D9D9'}
@@ -52,12 +52,14 @@ export default class GeneralSlider extends Component {
             <View style={{width: '100%'}}>
               <Slider
                 style={styles.slider}
-                maximumValue={this.state.maxValue1}
+                maximumValue={this.state.maxGoalScore}
                 step={1}
                 thumbTintColor={'rgba(0, 0, 0, 0)'}
-                value={this.state.value1}
-                onValueChange={(value1) => this.setState({value1})}
-                allowTouchTrack={true}
+                value={this.props.active.goalScore}
+                onValueChange={(goalScore) =>
+                  this.props.slidingHandler(goalScore)
+                }
+                tapToSeek={true}
                 thumbTouchSize={{width: 100, height: 100}} //?
                 minimumTrackTintColor={this.props.thumbColor}
                 maximumTrackTintColor={'#D9D9D9'}
@@ -71,12 +73,12 @@ export default class GeneralSlider extends Component {
               />
               <Slider
                 style={styles.slider}
-                maximumValue={this.state.maxValue2}
+                maximumValue={this.state.maxDefaultScore}
                 step={1}
                 thumbTintColor={'rgba(0, 0, 0, 0)'}
-                value={this.state.value2}
-                onValueChange={(value2) => this.setState({value2})}
-                allowTouchTrack={true}
+                value={this.state.defaultScore}
+                onValueChange={(defaultScore) => this.setState({defaultScore})}
+                tapToSeek={true}
                 thumbTouchSize={{width: 100, height: 100}} //?
                 minimumTrackTintColor={this.props.thumbColor}
                 maximumTrackTintColor={'#D9D9D9'}
@@ -107,8 +109,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '100%',
     borderStyle: 'solid',
-    borderColor: 'gray',
-    borderWidth: 1,
+    borderColor: '#CDCDCD',
+    borderWidth: 1.5,
     borderRadius: 15,
     marginBottom: -30,
     minHeight: 90,

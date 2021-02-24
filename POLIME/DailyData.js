@@ -1,56 +1,46 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Button, Pressable, View} from 'react-native';
 import {color} from 'react-native-reanimated';
+import {act} from 'react-test-renderer';
 import GeneralSlider from './GeneralSlider';
-
-// In the arrays that follow, the first number tells the score,
-// while the second tells its max value.
-
-// Default is the sub-slider that represent
-// a general aspect (e.g. active) and not a
-// goal, and therefore has its max value calculated as
-// 20 - all the goals max weight
-
-// Score is calculated as the sum of default and goals scores
 
 var active = {
   goals: {
-    goalOne: [2, 8],
-    goalTwo: [2, 2],
+    name: 'goalName',
+    maxValue: 8,
+    end: 'end-date',
+    description: 'description',
   },
 
-  defaultScore: 1,
+  goalScore: 2,
 
-  default: function () {
-    var sum = 0;
-    for (var goal in this.goals) {
-      if (this.goals.hasOwnProperty(goal)) {
-        sum += parseFloat(this.goals[goal][1]);
-      }
-    }
-    return [this.defaultScore, 20 - sum];
+  get defaultScore() {
+    return 20 - this.goalScore;
   },
-
-  score: function () {
-    var sum = 0;
-    for (var goal in this.goals) {
-      if (this.goals.hasOwnProperty(goal)) {
-        sum += parseFloat(this.goals[goal][0]);
-      }
-    }
-    return sum;
+  get score() {
+    return this.goalScore + this.defaultScore;
   },
 };
 
 export default class DailyData extends Component {
+  slidingHandler = (goalScore) => {
+    active.goalScore = goalScore;
+    console.log(active.goalScore);
+  };
+
   render() {
     return (
       <>
+        <Text style={{color: 'white'}}>
+          {active.goalScore}, {active.defaultScore}, {active.score}
+        </Text>
         <GeneralSlider
           thumbColor="#79D81A"
           type="active"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
+          slidingHandler={this.slidingHandler}
+          active={active}
         />
 
         <GeneralSlider
