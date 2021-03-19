@@ -3,17 +3,12 @@ import {Animated, StyleSheet, Text, Pressable, View} from 'react-native';
 import Slider from 'react-native-slider';
 
 export default class GeneralSlider extends Component {
-  state = {
-    //to inherit
-    maxGoalScore: 10,
-    maxDefaultScore: 10,
-    //to inherit
-
-    //to make 0 somehow, without destroyng graphics
-    //COULDFIX: setting different thumbStyle when value = 0
-    goalScore: 0.5,
-    defaultScore: 0.5,
-  };
+  constructor(props) {
+    super(props);
+    // this.state = {
+    //   goalScore: this.props.active.goalScore || 0,
+    // };
+  }
 
   render() {
     if (
@@ -33,9 +28,9 @@ export default class GeneralSlider extends Component {
             type={this.props.type}
             style={styles.slider}
             disabled={true}
-            maximumValue={this.state.maxGoalScore + this.state.maxDefaultScore}
+            maximumValue={20}
             thumbTintColor={'rgba(0, 0, 0, 0)'}
-            value={this.state.goalScore + this.state.defaultScore}
+            value={this.props.score}
             //animateTransitions={true}
             minimumTrackTintColor={this.props.thumbColor}
             maximumTrackTintColor={'#D9D9D9'}
@@ -52,13 +47,15 @@ export default class GeneralSlider extends Component {
             <View style={{width: '100%'}}>
               <Slider
                 style={styles.slider}
-                maximumValue={this.state.maxGoalScore}
+                maximumValue={this.props.active.goals.maxValue}
                 step={1}
                 thumbTintColor={'rgba(0, 0, 0, 0)'}
-                value={this.props.active.goalScore}
-                onValueChange={(goalScore) =>
-                  this.props.slidingHandler(goalScore)
-                }
+                value={0.5}
+                onValueChange={(goalScore) => {
+                  if (goalScore != this.props.active.goalScore) {
+                    this.props.slidingHandler(goalScore);
+                  }
+                }}
                 tapToSeek={true}
                 thumbTouchSize={{width: 100, height: 100}} //?
                 minimumTrackTintColor={this.props.thumbColor}
@@ -73,11 +70,15 @@ export default class GeneralSlider extends Component {
               />
               <Slider
                 style={styles.slider}
-                maximumValue={this.state.maxDefaultScore}
+                maximumValue={10} //this.props.active.defaultMaxValue
                 step={1}
                 thumbTintColor={'rgba(0, 0, 0, 0)'}
-                value={this.state.defaultScore}
-                onValueChange={(defaultScore) => this.setState({defaultScore})}
+                value={0.5}
+                onValueChange={(defaultScore) => {
+                  if (defaultScore != this.props.active.defaultScore) {
+                    this.props.slidingHandlerDefault(defaultScore);
+                  }
+                }}
                 tapToSeek={true}
                 thumbTouchSize={{width: 100, height: 100}} //?
                 minimumTrackTintColor={this.props.thumbColor}
