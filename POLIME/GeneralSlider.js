@@ -5,9 +5,6 @@ import Slider from 'react-native-slider';
 export default class GeneralSlider extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   goalScore: this.props.active.goalScore || 0,
-    // };
   }
 
   render() {
@@ -33,7 +30,7 @@ export default class GeneralSlider extends Component {
             value={this.props.score}
             //animateTransitions={true}
             minimumTrackTintColor={this.props.thumbColor}
-            maximumTrackTintColor={'#D9D9D9'}
+            maximumTrackTintColor={'#e5e5e5'}
             trackStyle={{
               height: 15,
               borderRadius: 10,
@@ -45,21 +42,41 @@ export default class GeneralSlider extends Component {
 
           {this.props.showOnlySlider === this.props.type && (
             <View style={{width: '100%'}}>
+              <Text>
+                {this.props.typeData == undefined
+                  ? ''
+                  : this.props.typeData.pep}
+              </Text>
+              <Text>
+                {this.props.typeData == undefined
+                  ? ''
+                  : this.props.typeData.goal.name}
+              </Text>
+              <Text>
+                {this.props.typeData == undefined
+                  ? ''
+                  : this.props.typeData.goal.description}
+              </Text>
+              <Text>
+                {this.props.typeData == undefined
+                  ? ''
+                  : this.props.typeData.goal.end}
+              </Text>
               <Slider
                 style={styles.slider}
-                maximumValue={this.props.active.goals.maxValue}
+                maximumValue={this.props.typeData.goal.maxValue}
                 step={1}
                 thumbTintColor={'rgba(0, 0, 0, 0)'}
                 value={0.5}
                 onValueChange={(goalScore) => {
-                  if (goalScore != this.props.active.goalScore) {
-                    this.props.slidingHandler(goalScore);
+                  if (goalScore != this.props.typeData.goalScore) {
+                    this.props.slidingHandler(goalScore, this.props.type);
                   }
                 }}
                 tapToSeek={true}
                 thumbTouchSize={{width: 100, height: 100}} //?
                 minimumTrackTintColor={this.props.thumbColor}
-                maximumTrackTintColor={'#D9D9D9'}
+                maximumTrackTintColor={'#e5e5e5'}
                 trackStyle={{
                   height: 30,
                   borderRadius: 10,
@@ -70,19 +87,22 @@ export default class GeneralSlider extends Component {
               />
               <Slider
                 style={styles.slider}
-                maximumValue={10} //this.props.active.defaultMaxValue
+                maximumValue={this.props.typeData.defaultMaxValue}
                 step={1}
                 thumbTintColor={'rgba(0, 0, 0, 0)'}
                 value={0.5}
                 onValueChange={(defaultScore) => {
-                  if (defaultScore != this.props.active.defaultScore) {
-                    this.props.slidingHandlerDefault(defaultScore);
+                  if (defaultScore != this.props.typeData.defaultScore) {
+                    this.props.slidingHandlerDefault(
+                      defaultScore,
+                      this.props.type,
+                    );
                   }
                 }}
                 tapToSeek={true}
                 thumbTouchSize={{width: 100, height: 100}} //?
                 minimumTrackTintColor={this.props.thumbColor}
-                maximumTrackTintColor={'#D9D9D9'}
+                maximumTrackTintColor={'#e5e5e5'}
                 trackStyle={{
                   height: 30,
                   borderRadius: 10,

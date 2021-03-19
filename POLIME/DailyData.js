@@ -7,7 +7,9 @@ import GeneralSlider from './GeneralSlider';
 export default class DailyData extends Component {
   state = {
     active: {
-      goals: {
+      pep: 'keep fit',
+
+      goal: {
         name: 'goalName',
         maxValue: 10,
         end: 'end-date',
@@ -18,9 +20,76 @@ export default class DailyData extends Component {
       defaultScore: 0.5,
 
       get defaultMaxValue() {
-        return 20 - this.goals.maxValue;
+        return 20 - this.goal.maxValue;
       },
-      // score: this.goalScore + this.defaultScore,
+    },
+    creative: {
+      pep: 'keep fit',
+
+      goal: {
+        name: 'goalName',
+        maxValue: 10,
+        end: 'end-date',
+        description: 'description',
+      },
+
+      goalScore: 0.5,
+      defaultScore: 0.5,
+
+      get defaultMaxValue() {
+        return 20 - this.goal.maxValue;
+      },
+    },
+    learning: {
+      pep: 'keep fit',
+
+      goal: {
+        name: 'goalName',
+        maxValue: 10,
+        end: 'end-date',
+        description: 'description',
+      },
+
+      goalScore: 0.5,
+      defaultScore: 0.5,
+
+      get defaultMaxValue() {
+        return 20 - this.goal.maxValue;
+      },
+    },
+    social: {
+      pep: 'keep fit',
+
+      goal: {
+        name: 'goalName',
+        maxValue: 10,
+        end: 'end-date',
+        description: 'description',
+      },
+
+      goalScore: 0.5,
+      defaultScore: 0.5,
+
+      get defaultMaxValue() {
+        return 20 - this.goal.maxValue;
+      },
+    },
+    selfCaring: {
+      pep: 'keep fit',
+
+      goal: {
+        name: 'goalName',
+        maxValue: 10,
+        end: 'end-date',
+        description: 'description',
+      },
+
+      goalScore: 0.5,
+      defaultScore: 0.5,
+
+      get defaultMaxValue() {
+        return 20 - this.goal.maxValue;
+      },
     },
   };
 
@@ -28,20 +97,18 @@ export default class DailyData extends Component {
     super(props);
   }
 
-  slidingHandler = (goalScore) => {
-    this.setState({active: {...this.state.active, goalScore: goalScore}});
+  slidingHandler = (goalScore, type) => {
+    this.setState({[type]: {...this.state[type], goalScore: goalScore}});
     console.log([
-      'goalScore: ' + this.state.active.goalScore,
-      'score: ' +
-        (this.state.active.defaultScore + this.state.active.goalScore),
+      'goalScore: ' + this.state[type].goalScore,
+      'score: ' + (this.state[type].defaultScore + this.state[type].goalScore),
     ]);
   };
-  slidingHandlerDefault = (defaultScore) => {
-    this.setState({active: {...this.state.active, defaultScore: defaultScore}});
+  slidingHandlerDefault = (defaultScore, type) => {
+    this.setState({[type]: {...this.state[type], defaultScore: defaultScore}});
     console.log([
-      'defaultScore: ' + this.state.active.defaultScore,
-      'score: ' +
-        (this.state.active.defaultScore + this.state.active.goalScore),
+      'defaultScore: ' + this.state[type].defaultScore,
+      'score: ' + (this.state[type].defaultScore + this.state[type].goalScore),
     ]);
   };
 
@@ -55,7 +122,7 @@ export default class DailyData extends Component {
           focusOnMe={this.props.focusOnMe}
           slidingHandler={this.slidingHandler}
           slidingHandlerDefault={this.slidingHandlerDefault}
-          active={this.state.active}
+          typeData={this.state.active}
           score={this.state.active.defaultScore + this.state.active.goalScore}
         />
 
@@ -64,24 +131,46 @@ export default class DailyData extends Component {
           type="creative"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
+          slidingHandler={this.slidingHandler}
+          slidingHandlerDefault={this.slidingHandlerDefault}
+          typeData={this.state.creative}
+          score={
+            this.state.creative.defaultScore + this.state.creative.goalScore
+          }
         />
         <GeneralSlider
-          thumbColor="#EC553E"
+          thumbColor="#dd5e23"
           type="learning"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
+          slidingHandler={this.slidingHandler}
+          slidingHandlerDefault={this.slidingHandlerDefault}
+          typeData={this.state.learning}
+          score={
+            this.state.learning.defaultScore + this.state.learning.goalScore
+          }
         />
         <GeneralSlider
           thumbColor="#E56CF3"
           type="social"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
+          slidingHandler={this.slidingHandler}
+          slidingHandlerDefault={this.slidingHandlerDefault}
+          typeData={this.state.social}
+          score={this.state.social.defaultScore + this.state.social.goalScore}
         />
         <GeneralSlider
-          thumbColor="#E1BD5B"
-          type="self-caring"
+          thumbColor="#ffc721"
+          type="selfCaring"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
+          slidingHandler={this.slidingHandler}
+          slidingHandlerDefault={this.slidingHandlerDefault}
+          typeData={this.state.selfCaring}
+          score={
+            this.state.selfCaring.defaultScore + this.state.selfCaring.goalScore
+          }
         />
       </>
     );
