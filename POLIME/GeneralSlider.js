@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Animated, StyleSheet, Text, Pressable, View} from 'react-native';
-import Slider from 'react-native-slider';
+//import Slider from 'react-native-slider';
+import { Slider } from 'react-native-elements';
 
 export default class GeneralSlider extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export default class GeneralSlider extends Component {
             maximumValue={20}
             thumbTintColor={'rgba(0, 0, 0, 0)'}
             value={this.props.score}
-            //animateTransitions={true}
+            animateTransitions={true}
             minimumTrackTintColor={this.props.thumbColor}
             maximumTrackTintColor={'#e5e5e5'}
             trackStyle={{
@@ -67,14 +68,14 @@ export default class GeneralSlider extends Component {
                 maximumValue={this.props.typeData.goal.maxValue}
                 step={1}
                 thumbTintColor={'rgba(0, 0, 0, 0)'}
-                value={0.5}
+                value={this.props.typeData.goalScore}
+                animateTransitions={true}
                 onValueChange={(goalScore) => {
                   if (goalScore != this.props.typeData.goalScore) {
                     this.props.slidingHandler(goalScore, this.props.type);
                   }
                 }}
-                tapToSeek={true}
-                thumbTouchSize={{width: 100, height: 100}} //?
+                allowTouchTrack={true}        
                 minimumTrackTintColor={this.props.thumbColor}
                 maximumTrackTintColor={'#e5e5e5'}
                 trackStyle={{
@@ -90,7 +91,8 @@ export default class GeneralSlider extends Component {
                 maximumValue={this.props.typeData.defaultMaxValue}
                 step={1}
                 thumbTintColor={'rgba(0, 0, 0, 0)'}
-                value={0.5}
+                value={this.props.typeData.defaultScore}
+                animateTransitions={true}
                 onValueChange={(defaultScore) => {
                   if (defaultScore != this.props.typeData.defaultScore) {
                     this.props.slidingHandlerDefault(
@@ -99,8 +101,7 @@ export default class GeneralSlider extends Component {
                     );
                   }
                 }}
-                tapToSeek={true}
-                thumbTouchSize={{width: 100, height: 100}} //?
+                allowTouchTrack={true} 
                 minimumTrackTintColor={this.props.thumbColor}
                 maximumTrackTintColor={'#e5e5e5'}
                 trackStyle={{

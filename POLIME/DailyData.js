@@ -3,6 +3,7 @@ import {StyleSheet, Text, Button, Pressable, View} from 'react-native';
 import {color} from 'react-native-reanimated';
 import {act} from 'react-test-renderer';
 import GeneralSlider from './GeneralSlider';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 export default class DailyData extends Component {
   state = {
@@ -92,10 +93,6 @@ export default class DailyData extends Component {
       },
     },
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   slidingHandler = (goalScore, type) => {
     this.setState({[type]: {...this.state[type], goalScore: goalScore}});
