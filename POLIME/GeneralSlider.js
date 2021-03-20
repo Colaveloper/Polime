@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Animated, StyleSheet, Text, Pressable, View} from 'react-native';
-//import Slider from 'react-native-slider';
-import { Slider } from 'react-native-elements';
+import {Slider} from 'react-native-elements';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 export default class GeneralSlider extends Component {
   constructor(props) {
@@ -14,14 +14,16 @@ export default class GeneralSlider extends Component {
       this.props.showOnlySlider === 'all'
     ) {
       return (
-        <Pressable
+        <GestureRecognizer
+          onSwipeUp={() => this.props.focusOnMe(this.props.type)}
+          onSwipeDown={() => this.props.focusOnMe('all')}
+          onTouchStart={() => this.props.focusOnMe(this.props.type)}
           style={[
             styles.card,
             this.props.showOnlySlider === this.props.type
               ? {height: '80%', marginTop: -60}
               : null,
-          ]}
-          onPress={() => this.props.focusOnMe(this.props.type)}>
+          ]}>
           <Slider
             type={this.props.type}
             style={styles.slider}
@@ -40,7 +42,6 @@ export default class GeneralSlider extends Component {
               width: 0,
             }}
           />
-
           {this.props.showOnlySlider === this.props.type && (
             <View style={{width: '100%'}}>
               <Text>
@@ -75,7 +76,7 @@ export default class GeneralSlider extends Component {
                     this.props.slidingHandler(goalScore, this.props.type);
                   }
                 }}
-                allowTouchTrack={true}        
+                allowTouchTrack={true}
                 minimumTrackTintColor={this.props.thumbColor}
                 maximumTrackTintColor={'#e5e5e5'}
                 trackStyle={{
@@ -101,7 +102,7 @@ export default class GeneralSlider extends Component {
                     );
                   }
                 }}
-                allowTouchTrack={true} 
+                allowTouchTrack={true}
                 minimumTrackTintColor={this.props.thumbColor}
                 maximumTrackTintColor={'#e5e5e5'}
                 trackStyle={{
@@ -114,7 +115,7 @@ export default class GeneralSlider extends Component {
               />
             </View>
           )}
-        </Pressable>
+        </GestureRecognizer>
       );
     } else {
       return null;

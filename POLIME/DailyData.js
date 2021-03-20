@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Button, Pressable, View} from 'react-native';
-import {color} from 'react-native-reanimated';
-import {act} from 'react-test-renderer';
 import GeneralSlider from './GeneralSlider';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
@@ -96,20 +94,17 @@ export default class DailyData extends Component {
 
   slidingHandler = (goalScore, type) => {
     this.setState({[type]: {...this.state[type], goalScore: goalScore}});
-    console.log([
-      'goalScore: ' + this.state[type].goalScore,
-      'score: ' + (this.state[type].defaultScore + this.state[type].goalScore),
-    ]);
   };
   slidingHandlerDefault = (defaultScore, type) => {
     this.setState({[type]: {...this.state[type], defaultScore: defaultScore}});
-    console.log([
-      'defaultScore: ' + this.state[type].defaultScore,
-      'score: ' + (this.state[type].defaultScore + this.state[type].goalScore),
-    ]);
   };
 
   render() {
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80,
+    };
+
     return (
       <>
         <GeneralSlider
@@ -121,6 +116,7 @@ export default class DailyData extends Component {
           slidingHandlerDefault={this.slidingHandlerDefault}
           typeData={this.state.active}
           score={this.state.active.defaultScore + this.state.active.goalScore}
+          onSwipeUp={(state) => this.onSwipeUp(state)}
         />
 
         <GeneralSlider
