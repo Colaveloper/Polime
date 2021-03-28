@@ -17,7 +17,6 @@ export default class GeneralSlider extends Component {
         <GestureRecognizer
           onSwipeUp={() => this.props.focusOnMe(this.props.type)}
           onSwipeDown={() => this.props.focusOnMe('all')}
-          onTouchStart={() => this.props.focusOnMe(this.props.type)}
           style={[
             styles.card,
             this.props.showOnlySlider === this.props.type

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, Button, Pressable, View} from 'react-native';
 import GeneralSlider from './GeneralSlider';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class DailyData extends Component {
   state = {
@@ -92,6 +93,116 @@ export default class DailyData extends Component {
     },
   };
 
+  componentDidMount() {
+    const data = {
+      active: {
+        pep: 'keep fit',
+
+        goal: {
+          name: 'goalName',
+          maxValue: 10,
+          end: 'end-date',
+          description: 'description',
+        },
+
+        goalScore: 0.5,
+        defaultScore: 0.5,
+
+        get defaultMaxValue() {
+          return 20 - this.goal.maxValue;
+        },
+      },
+      creative: {
+        pep: 'keep fit',
+
+        goal: {
+          name: 'goalName',
+          maxValue: 10,
+          end: 'end-date',
+          description: 'description',
+        },
+
+        goalScore: 0.5,
+        defaultScore: 0.5,
+
+        get defaultMaxValue() {
+          return 20 - this.goal.maxValue;
+        },
+      },
+      learning: {
+        pep: 'keep fit',
+
+        goal: {
+          name: 'goalName',
+          maxValue: 10,
+          end: 'end-date',
+          description: 'description',
+        },
+
+        goalScore: 0.5,
+        defaultScore: 0.5,
+
+        get defaultMaxValue() {
+          return 20 - this.goal.maxValue;
+        },
+      },
+      social: {
+        pep: 'keep fit',
+
+        goal: {
+          name: 'goalName',
+          maxValue: 10,
+          end: 'end-date',
+          description: 'description',
+        },
+
+        goalScore: 0.5,
+        defaultScore: 0.5,
+
+        get defaultMaxValue() {
+          return 20 - this.goal.maxValue;
+        },
+      },
+      selfCaring: {
+        pep: 'keep fit',
+
+        goal: {
+          name: 'goalName',
+          maxValue: 10,
+          end: 'end-date',
+          description: 'description',
+        },
+
+        goalScore: 0.5,
+        defaultScore: 0.5,
+
+        get defaultMaxValue() {
+          return 20 - this.goal.maxValue;
+        },
+      },
+    };
+
+    AsyncStorage.setItem('data', JSON.stringify(data))
+      .then(() => {
+        console.log('data saved');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  retrieveData = () => {
+    AsyncStorage.getItem('data')
+      .then((value) => {
+        const data = JSON.parse(value);
+        console.log(`${data.active.pep}`);
+        return `${data.active.pep}`;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   slidingHandler = (goalScore, type) => {
     this.setState({[type]: {...this.state[type], goalScore: goalScore}});
   };
@@ -107,6 +218,7 @@ export default class DailyData extends Component {
 
     return (
       <>
+        {/* <Button onPress={this.retrieveData} title="Show saved Object" /> */}
         <GeneralSlider
           thumbColor="#79D81A"
           type="active"
