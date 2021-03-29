@@ -114,33 +114,35 @@ export default class DailyData extends Component {
     AsyncStorage.getItem('data')
       .then((value) => {
         const data = JSON.parse(value);
-        this.setState((prevState) => ({
-          active: {
-            ...prevState.active,
-            defaultScore: data.active.defaultScore,
-            goalScore: data.active.goalScore,
-          },
-          creative: {
-            ...prevState.creative,
-            defaultScore: data.creative.defaultScore,
-            goalScore: data.creative.goalScore,
-          },
-          learning: {
-            ...prevState.learning,
-            defaultScore: data.learning.defaultScore,
-            goalScore: data.learning.goalScore,
-          },
-          social: {
-            ...prevState.social,
-            defaultScore: data.social.defaultScore,
-            goalScore: data.social.goalScore,
-          },
-          selfCaring: {
-            ...prevState.selfCaring,
-            defaultScore: data.selfCaring.defaultScore,
-            goalScore: data.selfCaring.goalScore,
-          },
-        }));
+        value === null
+          ? null
+          : this.setState((prevState) => ({
+              active: {
+                ...prevState.active,
+                defaultScore: data.active.defaultScore,
+                goalScore: data.active.goalScore,
+              },
+              creative: {
+                ...prevState.creative,
+                defaultScore: data.creative.defaultScore,
+                goalScore: data.creative.goalScore,
+              },
+              learning: {
+                ...prevState.learning,
+                defaultScore: data.learning.defaultScore,
+                goalScore: data.learning.goalScore,
+              },
+              social: {
+                ...prevState.social,
+                defaultScore: data.social.defaultScore,
+                goalScore: data.social.goalScore,
+              },
+              selfCaring: {
+                ...prevState.selfCaring,
+                defaultScore: data.selfCaring.defaultScore,
+                goalScore: data.selfCaring.goalScore,
+              },
+            }));
       })
       .catch((error) => {
         console.log(error);
