@@ -165,7 +165,7 @@ export default class DailyData extends Component {
     return (
       <>
         <GeneralSlider
-          thumbColor="#79D81A"
+          thumbColor="#76B947"
           type="body"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
@@ -176,7 +176,7 @@ export default class DailyData extends Component {
           onSwipeUp={(state) => this.onSwipeUp(state)}
         />
         <GeneralSlider
-          thumbColor="#47C0F4"
+          thumbColor="#37ADE4"
           type="creativity"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
@@ -188,7 +188,7 @@ export default class DailyData extends Component {
           }
         />
         <GeneralSlider
-          thumbColor="#dd5e23"
+          thumbColor="#EB5656"
           type="learning"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
@@ -200,7 +200,7 @@ export default class DailyData extends Component {
           }
         />
         <GeneralSlider
-          thumbColor="#E56CF3"
+          thumbColor="#DA56ED"
           type="sociality"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
@@ -212,7 +212,7 @@ export default class DailyData extends Component {
           }
         />
         <GeneralSlider
-          thumbColor="#ffc721"
+          thumbColor="#EAAA39"
           type="mind"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
