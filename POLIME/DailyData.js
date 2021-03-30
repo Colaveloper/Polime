@@ -8,7 +8,7 @@ export default class DailyData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: {
+      body: {
         pep: 'keep fit',
 
         goal: {
@@ -25,8 +25,8 @@ export default class DailyData extends Component {
           return 20 - this.goal.maxValue;
         },
       },
-      creative: {
-        pep: 'keep fit',
+      creativity: {
+        pep: 'feel free to change',
 
         goal: {
           name: 'goalName',
@@ -43,7 +43,7 @@ export default class DailyData extends Component {
         },
       },
       learning: {
-        pep: 'keep fit',
+        pep: 'train your mind',
 
         goal: {
           name: 'goalName',
@@ -59,8 +59,8 @@ export default class DailyData extends Component {
           return 20 - this.goal.maxValue;
         },
       },
-      social: {
-        pep: 'keep fit',
+      sociality: {
+        pep: 'stay connected',
 
         goal: {
           name: 'goalName',
@@ -76,8 +76,8 @@ export default class DailyData extends Component {
           return 20 - this.goal.maxValue;
         },
       },
-      selfCaring: {
-        pep: 'keep fit',
+      mind: {
+        pep: 'mind the mind',
 
         goal: {
           name: 'goalName',
@@ -117,30 +117,30 @@ export default class DailyData extends Component {
         value === null
           ? null
           : this.setState((prevState) => ({
-              active: {
-                ...prevState.active,
-                defaultScore: data.active.defaultScore,
-                goalScore: data.active.goalScore,
+              body: {
+                ...prevState.body,
+                defaultScore: data.body.defaultScore,
+                goalScore: data.body.goalScore,
               },
-              creative: {
-                ...prevState.creative,
-                defaultScore: data.creative.defaultScore,
-                goalScore: data.creative.goalScore,
+              creativity: {
+                ...prevState.creativity,
+                defaultScore: data.creativity.defaultScore,
+                goalScore: data.creativity.goalScore,
               },
               learning: {
                 ...prevState.learning,
                 defaultScore: data.learning.defaultScore,
                 goalScore: data.learning.goalScore,
               },
-              social: {
-                ...prevState.social,
-                defaultScore: data.social.defaultScore,
-                goalScore: data.social.goalScore,
+              sociality: {
+                ...prevState.sociality,
+                defaultScore: data.sociality.defaultScore,
+                goalScore: data.sociality.goalScore,
               },
-              selfCaring: {
-                ...prevState.selfCaring,
-                defaultScore: data.selfCaring.defaultScore,
-                goalScore: data.selfCaring.goalScore,
+              mind: {
+                ...prevState.mind,
+                defaultScore: data.mind.defaultScore,
+                goalScore: data.mind.goalScore,
               },
             }));
       })
@@ -166,25 +166,25 @@ export default class DailyData extends Component {
       <>
         <GeneralSlider
           thumbColor="#79D81A"
-          type="active"
+          type="body"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
           slidingHandler={this.slidingHandler}
           slidingHandlerDefault={this.slidingHandlerDefault}
-          typeData={this.state.active}
-          score={this.state.active.defaultScore + this.state.active.goalScore}
+          typeData={this.state.body}
+          score={this.state.body.defaultScore + this.state.body.goalScore}
           onSwipeUp={(state) => this.onSwipeUp(state)}
         />
         <GeneralSlider
           thumbColor="#47C0F4"
-          type="creative"
+          type="creativity"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
           slidingHandler={this.slidingHandler}
           slidingHandlerDefault={this.slidingHandlerDefault}
-          typeData={this.state.creative}
+          typeData={this.state.creativity}
           score={
-            this.state.creative.defaultScore + this.state.creative.goalScore
+            this.state.creativity.defaultScore + this.state.creativity.goalScore
           }
         />
         <GeneralSlider
@@ -201,25 +201,25 @@ export default class DailyData extends Component {
         />
         <GeneralSlider
           thumbColor="#E56CF3"
-          type="social"
+          type="sociality"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
           slidingHandler={this.slidingHandler}
           slidingHandlerDefault={this.slidingHandlerDefault}
-          typeData={this.state.social}
-          score={this.state.social.defaultScore + this.state.social.goalScore}
+          typeData={this.state.sociality}
+          score={
+            this.state.sociality.defaultScore + this.state.sociality.goalScore
+          }
         />
         <GeneralSlider
           thumbColor="#ffc721"
-          type="selfCaring"
+          type="mind"
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
           slidingHandler={this.slidingHandler}
           slidingHandlerDefault={this.slidingHandlerDefault}
-          typeData={this.state.selfCaring}
-          score={
-            this.state.selfCaring.defaultScore + this.state.selfCaring.goalScore
-          }
+          typeData={this.state.mind}
+          score={this.state.mind.defaultScore + this.state.mind.goalScore}
         />
       </>
     );

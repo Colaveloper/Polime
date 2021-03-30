@@ -43,6 +43,7 @@ export default class GeneralSlider extends Component {
           />
           {this.props.showOnlySlider === this.props.type && (
             <View style={{width: '100%'}}>
+              <Text>{this.props.type == undefined ? '' : this.props.type}</Text>
               <Text>
                 {this.props.typeData == undefined
                   ? ''
