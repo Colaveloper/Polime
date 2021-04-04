@@ -18,6 +18,7 @@ export default class DailyData extends Component {
           description: 'description',
         },
 
+        meanScore: 2,
         goalScore: 0.5,
         defaultScore: 0.5,
 
@@ -35,6 +36,7 @@ export default class DailyData extends Component {
           description: 'description',
         },
 
+        meanScore: 3,
         goalScore: 0.5,
         defaultScore: 0.5,
 
@@ -52,6 +54,7 @@ export default class DailyData extends Component {
           description: 'description',
         },
 
+        meanScore: 7,
         goalScore: 0.5,
         defaultScore: 0.5,
 
@@ -69,6 +72,7 @@ export default class DailyData extends Component {
           description: 'description',
         },
 
+        meanScore: 15,
         goalScore: 0.5,
         defaultScore: 0.5,
 
@@ -86,6 +90,7 @@ export default class DailyData extends Component {
           description: 'description',
         },
 
+        meanScore: 4,
         goalScore: 0.5,
         defaultScore: 0.5,
 
@@ -173,7 +178,7 @@ export default class DailyData extends Component {
           slidingHandlerDefault={this.slidingHandlerDefault}
           typeData={this.state.body}
           score={this.state.body.defaultScore + this.state.body.goalScore}
-          onSwipeUp={(state) => this.onSwipeUp(state)}
+          meanScore={this.state.body.meanScore}
         />
         <GeneralSlider
           thumbColor="#37ADE4"
@@ -186,6 +191,8 @@ export default class DailyData extends Component {
           score={
             this.state.creativity.defaultScore + this.state.creativity.goalScore
           }
+          meanScore={this.state.creativity.meanScore}
+
         />
         <GeneralSlider
           thumbColor="#EB5656"
@@ -198,6 +205,8 @@ export default class DailyData extends Component {
           score={
             this.state.learning.defaultScore + this.state.learning.goalScore
           }
+          meanScore={this.state.learning.meanScore}
+
         />
         <GeneralSlider
           thumbColor="#DA56ED"
@@ -210,6 +219,8 @@ export default class DailyData extends Component {
           score={
             this.state.sociality.defaultScore + this.state.sociality.goalScore
           }
+          meanScore={this.state.sociality.meanScore}
+
         />
         <GeneralSlider
           thumbColor="#EAAA39"
@@ -220,7 +231,10 @@ export default class DailyData extends Component {
           slidingHandlerDefault={this.slidingHandlerDefault}
           typeData={this.state.mind}
           score={this.state.mind.defaultScore + this.state.mind.goalScore}
+          meanScore={this.state.mind.meanScore}
+
         />
+        
       </>
     );
   }

@@ -23,6 +23,7 @@ export default class GeneralSlider extends Component {
               ? {height: '80%', marginTop: -60}
               : null,
           ]}>
+            <View style={{width: '100%'}}>
           <Slider
             type={this.props.type}
             style={styles.slider}
@@ -41,6 +42,26 @@ export default class GeneralSlider extends Component {
               width: 0,
             }}
           />
+          <Slider
+            type={this.props.type}
+            style={styles.mean}
+            disabled={true}
+            maximumValue={20}
+            thumbTintColor={this.props.score > this.props.meanScore ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}
+            value={this.props.meanScore}
+            animateTransitions={true}
+            minimumTrackTintColor={'rgba(0, 0, 0, 0)'}
+            maximumTrackTintColor={'rgba(0, 0, 0, 0)'}
+            trackStyle={{
+              height: 15,
+              borderRadius: 10,
+            }}
+            thumbStyle={{
+              width: 5,
+              height: 5
+            }}
+          />
+          </View>
           {this.props.showOnlySlider === this.props.type && (
             <View style={{width: '100%'}}>
               <Text>{this.props.type == undefined ? '' : this.props.type}</Text>
@@ -125,6 +146,7 @@ export default class GeneralSlider extends Component {
 
 const styles = StyleSheet.create({
   slider: {width: '90%', height: 50, marginHorizontal: 20},
+  mean: {position: 'absolute', width:'90%', height: 50, marginHorizontal: 20},
   button: {
     marginHorizontal: 14,
   },
