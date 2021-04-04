@@ -9,7 +9,9 @@ export default class DailyData extends Component {
     super(props);
     this.state = {
       body: {
+        type: 'body',
         pep: 'keep fit',
+        color:"#76B947",
 
         goal: {
           name: 'goalName',
@@ -18,7 +20,7 @@ export default class DailyData extends Component {
           description: 'description',
         },
 
-        meanScore: 2,
+        meanScore: 3,
         goalScore: 0.5,
         defaultScore: 0.5,
 
@@ -27,7 +29,9 @@ export default class DailyData extends Component {
         },
       },
       creativity: {
+        type: 'creativity',
         pep: 'feel free to change',
+        color:"#37ADE4",
 
         goal: {
           name: 'goalName',
@@ -45,7 +49,9 @@ export default class DailyData extends Component {
         },
       },
       learning: {
+        type: 'learning',
         pep: 'train your mind',
+        color:"#EB5656",
 
         goal: {
           name: 'goalName',
@@ -63,7 +69,9 @@ export default class DailyData extends Component {
         },
       },
       sociality: {
+        type: 'sociality',
         pep: 'stay connected',
+        color:"#DA56ED",
 
         goal: {
           name: 'goalName',
@@ -81,7 +89,9 @@ export default class DailyData extends Component {
         },
       },
       mind: {
+        type: 'mind',
         pep: 'mind the mind',
+        color:"#EAAA39",
 
         goal: {
           name: 'goalName',
@@ -100,6 +110,8 @@ export default class DailyData extends Component {
       },
     };
   }
+
+ 
 
   componentDidUpdate() {
     AsyncStorage.setItem('data', JSON.stringify(this.state))
@@ -154,87 +166,26 @@ export default class DailyData extends Component {
       });
   };
 
-  slidingHandler = (goalScore, type) => {
-    this.setState({[type]: {...this.state[type], goalScore: goalScore}});
-  };
-  slidingHandlerDefault = (defaultScore, type) => {
-    this.setState({[type]: {...this.state[type], defaultScore: defaultScore}});
-  };
+  slidingHandler = (newScore, type, slider) => {
+    if (slider==='goal') {
+    this.setState({[type]: {...this.state[type], goalScore: newScore}});
+    } else if (slider==='default') {
+      this.setState({[type]: {...this.state[type], defaultScore: newScore}});
+    }}
+ 
 
   render() {
-    const config = {
-      velocityThreshold: 0.3,
-      directionalOffsetThreshold: 80,
-    };
-
     return (
       <>
-        <GeneralSlider
-          thumbColor="#76B947"
-          type="body"
+        {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
+          <GeneralSlider 
           showOnlySlider={this.props.showOnlySlider}
           focusOnMe={this.props.focusOnMe}
           slidingHandler={this.slidingHandler}
-          slidingHandlerDefault={this.slidingHandlerDefault}
-          typeData={this.state.body}
-          score={this.state.body.defaultScore + this.state.body.goalScore}
-          meanScore={this.state.body.meanScore}
-        />
-        <GeneralSlider
-          thumbColor="#37ADE4"
-          type="creativity"
-          showOnlySlider={this.props.showOnlySlider}
-          focusOnMe={this.props.focusOnMe}
-          slidingHandler={this.slidingHandler}
-          slidingHandlerDefault={this.slidingHandlerDefault}
-          typeData={this.state.creativity}
-          score={
-            this.state.creativity.defaultScore + this.state.creativity.goalScore
-          }
-          meanScore={this.state.creativity.meanScore}
-
-        />
-        <GeneralSlider
-          thumbColor="#EB5656"
-          type="learning"
-          showOnlySlider={this.props.showOnlySlider}
-          focusOnMe={this.props.focusOnMe}
-          slidingHandler={this.slidingHandler}
-          slidingHandlerDefault={this.slidingHandlerDefault}
-          typeData={this.state.learning}
-          score={
-            this.state.learning.defaultScore + this.state.learning.goalScore
-          }
-          meanScore={this.state.learning.meanScore}
-
-        />
-        <GeneralSlider
-          thumbColor="#DA56ED"
-          type="sociality"
-          showOnlySlider={this.props.showOnlySlider}
-          focusOnMe={this.props.focusOnMe}
-          slidingHandler={this.slidingHandler}
-          slidingHandlerDefault={this.slidingHandlerDefault}
-          typeData={this.state.sociality}
-          score={
-            this.state.sociality.defaultScore + this.state.sociality.goalScore
-          }
-          meanScore={this.state.sociality.meanScore}
-
-        />
-        <GeneralSlider
-          thumbColor="#EAAA39"
-          type="mind"
-          showOnlySlider={this.props.showOnlySlider}
-          focusOnMe={this.props.focusOnMe}
-          slidingHandler={this.slidingHandler}
-          slidingHandlerDefault={this.slidingHandlerDefault}
-          typeData={this.state.mind}
-          score={this.state.mind.defaultScore + this.state.mind.goalScore}
-          meanScore={this.state.mind.meanScore}
-
-        />
-        
+          key={type}        
+          typeData={this.state[type]}
+          />
+        ))}
       </>
     );
   }

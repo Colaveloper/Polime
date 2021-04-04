@@ -4,35 +4,35 @@ import {Slider} from 'react-native-elements';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 export default class GeneralSlider extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
+  const type = this.props.typeData.type
+  const score = this.props.typeData.defaultScore + this.props.typeData.goalScore
+
     if (
-      this.props.showOnlySlider === this.props.type ||
+      this.props.showOnlySlider === type ||
       this.props.showOnlySlider === 'all'
     ) {
       return (
         <GestureRecognizer
-          onSwipeUp={() => this.props.focusOnMe(this.props.type)}
+          onSwipeUp={() => this.props.focusOnMe(type)}
           onSwipeDown={() => this.props.focusOnMe('all')}
           style={[
             styles.card,
-            this.props.showOnlySlider === this.props.type
+            this.props.showOnlySlider === type
               ? {height: '80%', marginTop: -60}
               : null,
           ]}>
             <View style={{width: '100%'}}>
           <Slider
-            type={this.props.type}
+            type={type}
             style={styles.slider}
             disabled={true}
             maximumValue={20}
             thumbTintColor={'rgba(0, 0, 0, 0)'}
-            value={this.props.score}
+            value={score}
             animateTransitions={true}
-            minimumTrackTintColor={this.props.thumbColor}
+            minimumTrackTintColor={this.props.typeData.color}
             maximumTrackTintColor={'#e5e5e5'}
             trackStyle={{
               height: 15,
@@ -43,12 +43,12 @@ export default class GeneralSlider extends Component {
             }}
           />
           <Slider
-            type={this.props.type}
+            type={type}
             style={styles.mean}
             disabled={true}
             maximumValue={20}
-            thumbTintColor={this.props.score > this.props.meanScore ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}
-            value={this.props.meanScore}
+            thumbTintColor={score > this.props.typeData.meanScore ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}
+            value={this.props.typeData.meanScore}
             animateTransitions={true}
             minimumTrackTintColor={'rgba(0, 0, 0, 0)'}
             maximumTrackTintColor={'rgba(0, 0, 0, 0)'}
@@ -62,9 +62,9 @@ export default class GeneralSlider extends Component {
             }}
           />
           </View>
-          {this.props.showOnlySlider === this.props.type && (
+          {this.props.showOnlySlider === type && (
             <View style={{width: '100%'}}>
-              <Text>{this.props.type == undefined ? '' : this.props.type}</Text>
+              <Text>{type == undefined ? '' : type}</Text>
               <Text>
                 {this.props.typeData == undefined
                   ? ''
@@ -94,11 +94,11 @@ export default class GeneralSlider extends Component {
                 animateTransitions={true}
                 onValueChange={(goalScore) => {
                   if (goalScore != this.props.typeData.goalScore) {
-                    this.props.slidingHandler(goalScore, this.props.type);
+                    this.props.slidingHandler(goalScore, type, 'goal');
                   }
                 }}
                 allowTouchTrack={true}
-                minimumTrackTintColor={this.props.thumbColor}
+                minimumTrackTintColor={this.props.typeData.color}
                 maximumTrackTintColor={'#e5e5e5'}
                 trackStyle={{
                   height: 30,
@@ -117,14 +117,11 @@ export default class GeneralSlider extends Component {
                 animateTransitions={true}
                 onValueChange={(defaultScore) => {
                   if (defaultScore != this.props.typeData.defaultScore) {
-                    this.props.slidingHandlerDefault(
-                      defaultScore,
-                      this.props.type,
-                    );
+                    this.props.slidingHandler( defaultScore,type,'default');
                   }
                 }}
                 allowTouchTrack={true}
-                minimumTrackTintColor={this.props.thumbColor}
+                minimumTrackTintColor={this.props.typeData.color}
                 maximumTrackTintColor={'#e5e5e5'}
                 trackStyle={{
                   height: 30,
