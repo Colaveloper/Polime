@@ -5,49 +5,43 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 export default class GeneralSlider extends Component {
   state = {
-    heightAnim: new Animated.Value(0),
+    fadeAnim: new Animated.Value(.1),
     opaque:false
   }
 
   ToggleOpacity = () => {
-    Animated.timing(this.state.heightAnim, {
-      toValue: this.state.opaque ? 0 : -400,
+    const endOpacity = this.state.opaque ? .1 : 1;
+console.log(this.state.opaque)
+    Animated.timing(this.state.fadeAnim, {
+      toValue: endOpacity,
       duration: 1000,
-      useNativeDriver: false
+      useNativeDriver: true
     }).start();
     this.setState({opaque: !this.state.opaque})
 
   };
 
   render() {
-
     if (
       this.props.showOnlySlider === this.props.type ||
       this.props.showOnlySlider === 'all'
     ) {
       return (
-        <Animated.View style={[
-          styles.card,
-          this.props.showOnlySlider === this.props.type
-            ? {height: '80%', marginTop: -60}
-            : {height: '12%', marginTop: 0},
-            {
-              transform: [{ translateY: this.state.heightAnim }] 
-            },
-
-        ]}>
         <GestureRecognizer
           onSwipeUp={() => this.props.focusOnMe(this.props.type)}
           onSwipeDown={() => this.props.focusOnMe('all')}
-          style={{height: '100%', width: '100%', alignItems: 'center',
-          justifyContent: 'space-between',}}
-          >
+          style={[
+            styles.card,
+            this.props.showOnlySlider === this.props.type
+              ? {height: '80%', marginTop: -60}
+              : {height: '12%', marginTop: 0},
+          ]}>
             <View style={{flexDirection: 'row'}}>
         <Animated.View
           style={[
             styles.fadingContainer,
             {
-              opacity: this.state.heightAnim, 
+              opacity: this.state.fadeAnim // Bind opacity to animated value
             }
           ]}
         >
@@ -147,7 +141,7 @@ export default class GeneralSlider extends Component {
               />
             </View>
           )}
-        </GestureRecognizer></Animated.View>
+        </GestureRecognizer>
       );
     } else {
       return null;
@@ -170,7 +164,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginBottom: -30,
     minHeight: 90,
-    
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   fadingContainer: {
     paddingVertical: 8,
