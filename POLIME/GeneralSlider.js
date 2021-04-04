@@ -1,25 +1,12 @@
 import React, {Component} from 'react';
-import {Animated, StyleSheet, Text, Button, View, Alert} from 'react-native';
+import {Animated, StyleSheet, Text, Pressable, View} from 'react-native';
 import {Slider} from 'react-native-elements';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 export default class GeneralSlider extends Component {
-  state = {
-    fadeAnim: new Animated.Value(.1),
-    opaque:false
+  constructor(props) {
+    super(props);
   }
-
-  ToggleOpacity = () => {
-    const endOpacity = this.state.opaque ? .1 : 1;
-console.log(this.state.opaque)
-    Animated.timing(this.state.fadeAnim, {
-      toValue: endOpacity,
-      duration: 1000,
-      useNativeDriver: true
-    }).start();
-    this.setState({opaque: !this.state.opaque})
-
-  };
 
   render() {
     if (
@@ -34,21 +21,8 @@ console.log(this.state.opaque)
             styles.card,
             this.props.showOnlySlider === this.props.type
               ? {height: '80%', marginTop: -60}
-              : {height: '12%', marginTop: 0},
+              : null,
           ]}>
-            <View style={{flexDirection: 'row'}}>
-        <Animated.View
-          style={[
-            styles.fadingContainer,
-            {
-              opacity: this.state.fadeAnim // Bind opacity to animated value
-            }
-          ]}
-        >
-          <Text style={styles.fadingText}>Fading View!</Text></Animated.View>
-          <Button title="Toggle Opacity" onPress={this.ToggleOpacity} />
-          </View>
-        
           <Slider
             type={this.props.type}
             style={styles.slider}
@@ -166,10 +140,5 @@ const styles = StyleSheet.create({
     minHeight: 90,
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  fadingContainer: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    backgroundColor: "powderblue"
   },
 });
