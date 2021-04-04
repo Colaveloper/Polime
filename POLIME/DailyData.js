@@ -3,6 +3,18 @@ import { StyleSheet, Text, Button, Alert, Pressable, View } from 'react-native';
 import GeneralSlider from './GeneralSlider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// TO PRINT THE STORAGE
+
+AsyncStorage.getAllKeys().then((keyArray) => {
+  AsyncStorage.multiGet(keyArray).then((keyValArray) => {
+    let myStorage = {};
+    for (let keyVal of keyValArray) {
+      myStorage[keyVal[0]] = keyVal[1]
+    }
+    console.log('CURRENT STORAGE: ', myStorage);
+  })
+});
+
 export default class DailyData extends Component {
   constructor(props) {
     super(props);
@@ -107,14 +119,12 @@ export default class DailyData extends Component {
           return 20 - this.goal.maxValue;
         },
       },
-      date: new Date().getDate()
+      date: new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
     };
   }
 
-
-
   componentDidUpdate() {
-    AsyncStorage.setItem('data', JSON.stringify(this.state)) // save everything in Async Storage
+    AsyncStorage.setItem(this.state.date, JSON.stringify(this.state)) // save everything in Async Storage
       .then(() => {
         null;
       })
@@ -131,7 +141,7 @@ export default class DailyData extends Component {
   }
 
   retriveData = () => {
-    AsyncStorage.getItem('data')
+    AsyncStorage.getItem(this.state.date)
       .then((value) => {
         const data = JSON.parse(value);
         value === null
@@ -170,8 +180,7 @@ export default class DailyData extends Component {
   };
 
   newDayReset() {
-    console.log('5s passed');
-    if (new Date().getDate() !== this.state.date) {
+    if (new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() !== this.state.date) {
       this.setState((prevState) => ({
         body: {
           ...prevState.body,
@@ -198,7 +207,7 @@ export default class DailyData extends Component {
           defaultScore: .5,
           goalScore: .5,
         },
-        date: new Date().getDate()
+        date: new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
       }));
     }
   }
@@ -219,7 +228,7 @@ export default class DailyData extends Component {
   render() {
     return (
       <>
-        <Text>Today is April the {this.state.date}th</Text>
+        <Text>{this.state.date}</Text>
         {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
           <GeneralSlider
             showOnlySlider={this.props.showOnlySlider}
