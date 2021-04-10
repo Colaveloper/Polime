@@ -48,7 +48,7 @@ export default class GeneralSlider extends Component {
               disabled={true}
               maximumValue={20}
               thumbTintColor={score > this.props.typeData.meanScore ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'}
-              value={this.props.typeData.meanScore}
+              value={this.props.typeData.meanScore + .4}
               animateTransitions={true}
               minimumTrackTintColor={'rgba(0, 0, 0, 0)'}
               maximumTrackTintColor={'rgba(0, 0, 0, 0)'}

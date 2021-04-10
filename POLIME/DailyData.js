@@ -10,7 +10,7 @@ AsyncStorage.getAllKeys().then((keyArray) => {
     for (let keyVal of keyValArray) {
       myStorage[keyVal[0]] = keyVal[1]
     }
-    console.log('CURRENT STORAGE: ', myStorage);
+    // console.log('CURRENT STORAGE: ', myStorage);
   })
 });
 
@@ -28,9 +28,9 @@ export default class DailyData extends Component {
         description: 'description',
       },
 
-      meanScore: 3,
-      goalScore: 0.5,
-      defaultScore: 0.5,
+      meanScore: 0,
+      goalScore: 0,
+      defaultScore: 1,
 
       get defaultMaxValue() {
         return 20 - this.goal.maxValue;
@@ -48,9 +48,9 @@ export default class DailyData extends Component {
         description: 'description',
       },
 
-      meanScore: 3,
-      goalScore: 0.5,
-      defaultScore: 0.5,
+      meanScore: 0,
+      goalScore: 0,
+      defaultScore: 1,
 
       get defaultMaxValue() {
         return 20 - this.goal.maxValue;
@@ -68,9 +68,9 @@ export default class DailyData extends Component {
         description: 'description',
       },
 
-      meanScore: 7,
-      goalScore: 0.5,
-      defaultScore: 0.5,
+      meanScore: 0,
+      goalScore: 0,
+      defaultScore: 1,
 
       get defaultMaxValue() {
         return 20 - this.goal.maxValue;
@@ -88,9 +88,9 @@ export default class DailyData extends Component {
         description: 'description',
       },
 
-      meanScore: 15,
-      goalScore: 0.5,
-      defaultScore: 0.5,
+      meanScore: 0,
+      goalScore: 0,
+      defaultScore: 1,
 
       get defaultMaxValue() {
         return 20 - this.goal.maxValue;
@@ -108,9 +108,9 @@ export default class DailyData extends Component {
         description: 'description',
       },
 
-      meanScore: 4,
-      goalScore: 0.5,
-      defaultScore: 0.5,
+      meanScore: 0,
+      goalScore: 0,
+      defaultScore: 1,
 
       get defaultMaxValue() {
         return 20 - this.goal.maxValue;
@@ -166,6 +166,67 @@ export default class DailyData extends Component {
   }
 
   retriveData = () => {
+
+    const PreviousWeeks = [
+      new Date().getDate() - 6 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
+      new Date().getDate() - 5 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
+      new Date().getDate() - 4 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
+      new Date().getDate() - 3 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
+      new Date().getDate() - 2 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
+      new Date().getDate() - 1 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
+      new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
+    ]
+
+    AsyncStorage.multiGet(PreviousWeeks, (err, stores) => {
+
+      var meanBody = 0
+      var meanCreativity = 0
+      var meanLearning = 0
+      var meanSociality = 0
+      var meanMind = 0
+
+      stores.map((result, i, store) => {
+
+        let key = store[i][0];
+        let value = store[i][1];
+        const data = JSON.parse(value)
+
+        data == null
+          ? null
+          : (meanBody += (data.body.defaultScore + data.body.goalScore) * (i + 1),
+            meanCreativity += (data.creativity.defaultScore + data.creativity.goalScore) * (i + 1),
+            meanLearning += (data.learning.defaultScore + data.learning.goalScore) * (i + 1),
+            meanSociality += (data.sociality.defaultScore + data.sociality.goalScore) * (i + 1),
+            meanMind += (data.mind.defaultScore + data.mind.goalScore) * (i + 1))
+
+      });
+
+      this.setState((prevState) => ({
+        body: {
+          ...prevState.body,
+          meanScore: Math.floor(meanBody / 28)
+        },
+        creativity: {
+          ...prevState.creativity,
+          meanScore: Math.floor(meanCreativity / 28)
+
+        },
+        learning: {
+          ...prevState.learning,
+          meanScore: Math.floor(meanLearning / 28)
+        },
+        sociality: {
+          ...prevState.sociality,
+          meanScore: Math.floor(meanSociality / 28)
+        },
+        mind: {
+          ...prevState.mind,
+          meanScore: Math.floor(meanMind / 28)
+        },
+      }));
+    });
+
+
     AsyncStorage.getItem(this.state.date)
       .then((value) => {
         const data = JSON.parse(value);
@@ -176,6 +237,7 @@ export default class DailyData extends Component {
               ...prevState.body,
               defaultScore: data.body.defaultScore,
               goalScore: data.body.goalScore,
+              // meanScore: 
             },
             creativity: {
               ...prevState.creativity,
