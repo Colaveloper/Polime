@@ -15,115 +15,141 @@ AsyncStorage.getAllKeys().then((keyArray) => {
 });
 
 export default class DailyData extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      body: {
-        type: 'body',
-        pep: 'keep fit',
-        color: "#76B947",
+  state = {
+    body: {
+      type: 'body',
+      pep: 'keep fit',
+      color: "#76B947",
 
-        goal: {
-          name: 'goalName',
-          maxValue: 10,
-          end: 'end-date',
-          description: 'description',
-        },
-
-        meanScore: 3,
-        goalScore: 0.5,
-        defaultScore: 0.5,
-
-        get defaultMaxValue() {
-          return 20 - this.goal.maxValue;
-        },
+      goal: {
+        name: 'goalName',
+        maxValue: 10,
+        end: 'end-date',
+        description: 'description',
       },
-      creativity: {
-        type: 'creativity',
-        pep: 'feel free to change',
-        color: "#37ADE4",
 
-        goal: {
-          name: 'goalName',
-          maxValue: 10,
-          end: 'end-date',
-          description: 'description',
-        },
+      meanScore: 3,
+      goalScore: 0.5,
+      defaultScore: 0.5,
 
-        meanScore: 3,
-        goalScore: 0.5,
-        defaultScore: 0.5,
-
-        get defaultMaxValue() {
-          return 20 - this.goal.maxValue;
-        },
+      get defaultMaxValue() {
+        return 20 - this.goal.maxValue;
       },
-      learning: {
-        type: 'learning',
-        pep: 'train your mind',
-        color: "#EB5656",
+    },
+    creativity: {
+      type: 'creativity',
+      pep: 'feel free to change',
+      color: "#37ADE4",
 
-        goal: {
-          name: 'goalName',
-          maxValue: 10,
-          end: 'end-date',
-          description: 'description',
-        },
-
-        meanScore: 7,
-        goalScore: 0.5,
-        defaultScore: 0.5,
-
-        get defaultMaxValue() {
-          return 20 - this.goal.maxValue;
-        },
+      goal: {
+        name: 'goalName',
+        maxValue: 10,
+        end: 'end-date',
+        description: 'description',
       },
-      sociality: {
-        type: 'sociality',
-        pep: 'stay connected',
-        color: "#DA56ED",
 
-        goal: {
-          name: 'goalName',
-          maxValue: 10,
-          end: 'end-date',
-          description: 'description',
-        },
+      meanScore: 3,
+      goalScore: 0.5,
+      defaultScore: 0.5,
 
-        meanScore: 15,
-        goalScore: 0.5,
-        defaultScore: 0.5,
-
-        get defaultMaxValue() {
-          return 20 - this.goal.maxValue;
-        },
+      get defaultMaxValue() {
+        return 20 - this.goal.maxValue;
       },
-      mind: {
-        type: 'mind',
-        pep: 'mind the mind',
-        color: "#EAAA39",
+    },
+    learning: {
+      type: 'learning',
+      pep: 'train your mind',
+      color: "#EB5656",
 
-        goal: {
-          name: 'goalName',
-          maxValue: 10,
-          end: 'end-date',
-          description: 'description',
-        },
-
-        meanScore: 4,
-        goalScore: 0.5,
-        defaultScore: 0.5,
-
-        get defaultMaxValue() {
-          return 20 - this.goal.maxValue;
-        },
+      goal: {
+        name: 'goalName',
+        maxValue: 10,
+        end: 'end-date',
+        description: 'description',
       },
-      date: new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
-    };
-  }
+
+      meanScore: 7,
+      goalScore: 0.5,
+      defaultScore: 0.5,
+
+      get defaultMaxValue() {
+        return 20 - this.goal.maxValue;
+      },
+    },
+    sociality: {
+      type: 'sociality',
+      pep: 'stay connected',
+      color: "#DA56ED",
+
+      goal: {
+        name: 'goalName',
+        maxValue: 10,
+        end: 'end-date',
+        description: 'description',
+      },
+
+      meanScore: 15,
+      goalScore: 0.5,
+      defaultScore: 0.5,
+
+      get defaultMaxValue() {
+        return 20 - this.goal.maxValue;
+      },
+    },
+    mind: {
+      type: 'mind',
+      pep: 'mind the mind',
+      color: "#EAAA39",
+
+      goal: {
+        name: 'goalName',
+        maxValue: 10,
+        end: 'end-date',
+        description: 'description',
+      },
+
+      meanScore: 4,
+      goalScore: 0.5,
+      defaultScore: 0.5,
+
+      get defaultMaxValue() {
+        return 20 - this.goal.maxValue;
+      },
+    },
+    date: new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
+  };
+
 
   componentDidUpdate() {
-    AsyncStorage.setItem(this.state.date, JSON.stringify(this.state)) // save everything in Async Storage
+    const toSave = {
+      body: {
+        meanScore: this.state.body.meanScore,
+        goalScore: this.state.body.goalScore,
+        defaultScore: this.state.body.defaultScore,
+      },
+      creativity: {
+        meanScore: this.state.creativity.meanScore,
+        goalScore: this.state.creativity.goalScore,
+        defaultScore: this.state.creativity.defaultScore,
+      },
+      learning: {
+        meanScore: this.state.learning.meanScore,
+        goalScore: this.state.learning.goalScore,
+        defaultScore: this.state.learning.defaultScore,
+      },
+      sociality: {
+        meanScore: this.state.sociality.meanScore,
+        goalScore: this.state.sociality.goalScore,
+        defaultScore: this.state.sociality.defaultScore,
+      },
+      mind: {
+        meanScore: this.state.mind.meanScore,
+        goalScore: this.state.mind.goalScore,
+        defaultScore: this.state.mind.defaultScore,
+      },
+      date: this.state.date
+    }
+    AsyncStorage.setItem(this.state.date, JSON.stringify(toSave)) // save everything in Async Storage
       .then(() => {
         null;
       })
