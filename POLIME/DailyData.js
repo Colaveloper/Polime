@@ -23,7 +23,7 @@ export default class DailyData extends Component {
 
       goal: {
         name: 'goalName',
-        maxValue: 10,
+        maxValue: 0,
         end: 'end-date',
         description: 'description',
       },
@@ -43,7 +43,7 @@ export default class DailyData extends Component {
 
       goal: {
         name: 'goalName',
-        maxValue: 10,
+        maxValue: 0,
         end: 'end-date',
         description: 'description',
       },
@@ -63,7 +63,7 @@ export default class DailyData extends Component {
 
       goal: {
         name: 'goalName',
-        maxValue: 10,
+        maxValue: 0,
         end: 'end-date',
         description: 'description',
       },
@@ -83,7 +83,7 @@ export default class DailyData extends Component {
 
       goal: {
         name: 'goalName',
-        maxValue: 10,
+        maxValue: 0,
         end: 'end-date',
         description: 'description',
       },
@@ -103,7 +103,7 @@ export default class DailyData extends Component {
 
       goal: {
         name: 'goalName',
-        maxValue: 10,
+        maxValue: 0,
         end: 'end-date',
         description: 'description',
       },
