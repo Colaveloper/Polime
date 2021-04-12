@@ -269,7 +269,7 @@ export default class DailyData extends Component {
   newDayReset() {
     // if (new day and after 4am) {reset}
     if (new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() !== this.state.date
-      && 4 >= new Date().getHours()
+      && 4 <= new Date().getHours()
     ) {
       this.setState((prevState) => ({
         body: {
@@ -318,7 +318,7 @@ export default class DailyData extends Component {
   render() {
     return (
       <>
-        <Text>{this.state.date}, {new Date().getHours()} hours</Text>
+        <Text>{this.state.date}{4 <= new Date().getHours() ? '' : ': go to sleep my boy'}</Text>
         {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
           <GeneralSlider
             showOnlySlider={this.props.showOnlySlider}
