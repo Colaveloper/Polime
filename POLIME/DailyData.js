@@ -17,8 +17,8 @@ AsyncStorage.getAllKeys().then((keyArray) => {
 export default class DailyData extends Component {
   state = {
     body: {
-      type: 'body',
-      pep: 'keep fit',
+      type: 'Body',
+      pep: 'Fittness, sleep and health',
       color: "#76B947",
 
       goal: {
@@ -37,8 +37,8 @@ export default class DailyData extends Component {
       },
     },
     creativity: {
-      type: 'creativity',
-      pep: 'feel free to change',
+      type: 'Creativity',
+      pep: 'Art, ingenuity and code',
       color: "#37ADE4",
 
       goal: {
@@ -57,8 +57,8 @@ export default class DailyData extends Component {
       },
     },
     learning: {
-      type: 'learning',
-      pep: 'train your mind',
+      type: 'Learning',
+      pep: 'School, language and coding',
       color: "#EB5656",
 
       goal: {
@@ -77,8 +77,8 @@ export default class DailyData extends Component {
       },
     },
     sociality: {
-      type: 'sociality',
-      pep: 'stay connected',
+      type: 'Sociality',
+      pep: 'Meet, socials and PR',
       color: "#DA56ED",
 
       goal: {
@@ -97,15 +97,15 @@ export default class DailyData extends Component {
       },
     },
     mind: {
-      type: 'mind',
-      pep: 'mind the mind',
+      type: 'Mind',
+      pep: 'Awareness, entreprenuership, empathy',
       color: "#EAAA39",
 
       goal: {
         name: 'goalName',
         maxValue: 0,
         end: 'end-date',
-        description: 'description',
+        description: '',
       },
 
       meanScore: 0,
@@ -318,7 +318,7 @@ export default class DailyData extends Component {
   render() {
     return (
       <>
-        <Text>{this.state.date}{4 <= new Date().getHours() ? '' : ': go to sleep my boy'}</Text>
+        <Text style={{ color: 'white', fontSize: 24 }}>{this.state.date}{4 <= new Date().getHours() ? '' : ': go to sleep my boy'}</Text>
         {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
           <GeneralSlider
             showOnlySlider={this.props.showOnlySlider}

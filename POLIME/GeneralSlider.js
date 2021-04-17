@@ -12,15 +12,12 @@ export default class GeneralSlider extends Component {
 
     return (
       <View style={styles.card} >
-
-
-
         <Slider
           style={styles.mean}
           disabled={true}
           step={1}
           maximumValue={20}
-          thumbTintColor={score > this.props.typeData.meanScore ? this.props.typeData.color : 'black'}
+          thumbTintColor={score > this.props.typeData.meanScore ? this.props.typeData.color : 'grey'}
           value={this.props.typeData.meanScore - .1}
           animateTransitions={true}
           minimumTrackTintColor={'rgba(0, 0, 0, 0)'}
@@ -54,15 +51,19 @@ export default class GeneralSlider extends Component {
           }}
           thumbStyle={{
             width: 5,
-
             height: 5,
             zIndex: 2,
           }}
         />
-        <Text>{type}</Text>
-        <Text>
-          {this.props.typeData.pep}
-        </Text>
+        <View style={{ width: '100%' }}>
+          <Text style={{
+            fontSize: 20, color: 'grey'
+          }}>{type}</Text>
+          <Text style={{
+            fontStyle: 'italic', color: 'grey'
+          }}>
+            {this.props.typeData.pep}
+          </Text></View>
         {!noGoal && (
           <>
             <Text>
@@ -128,21 +129,23 @@ export default class GeneralSlider extends Component {
 }
 
 const styles = StyleSheet.create({
-  slider: { width: '90%', height: 50, marginHorizontal: 20 },
+  slider: { width: '97%', height: 50 },
   mean: { position: 'absolute', width: '90%', height: 80, marginTop: -15, marginHorizontal: 20, },
   card: {
     backgroundColor: 'white',
     width: '100%',
     borderStyle: 'solid',
-    borderColor: '#CDCDCD',
-    borderWidth: 3,
-    borderTopWidth: 4,
-    borderRadius: 15,
-    marginBottom: -3,
+    borderColor: 'grey',
+    borderWidth: 5,
+    borderBottomWidth: 1,
+    borderRadius: 20,
     minHeight: 90,
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingBottom: 10,
+    paddingHorizontal: 15,
   },
+
 });
 
 {/* <GestureRecognizer

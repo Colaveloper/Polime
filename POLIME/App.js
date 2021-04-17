@@ -47,9 +47,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    paddingBottom: 30,
+    paddingBottom: 5,
     width: '100%',
     height: '100%',
-    backgroundColor: '#CDCDCD',
+    backgroundColor: 'grey',
+    flexWrap: 'wrap'
   },
 });
