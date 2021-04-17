@@ -165,7 +165,7 @@ export default class DailyData extends Component {
     this.interval = setInterval(() => this.newDayReset(), 5000);
   }
 
-  retriveData = () => {
+  retriveData() {
 
     const PreviousWeeks = [
       new Date().getDate() - 6 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
