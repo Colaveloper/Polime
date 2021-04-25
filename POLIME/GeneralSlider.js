@@ -32,14 +32,15 @@ export default class GeneralSlider extends Component {
           }}
         /><Slider
           style={styles.slider}
+          step={1}
           disabled={false}
           maximumValue={20}
           thumbTintColor={'rgba(0, 0, 0, 0)'}
           value={score}
           animateTransitions={true}
           onValueChange={(defaultScore) => {
-            if (defaultScore != this.props.typeData.defaultScore) {
-              this.props.slidingHandler(defaultScore, type, 'default');
+            if (parseInt(defaultScore) != this.props.typeData.defaultScore) {
+              this.props.slidingHandler(parseInt(defaultScore), type, 'default');
             }
           }}
           allowTouchTrack={true}

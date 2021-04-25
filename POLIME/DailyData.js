@@ -310,7 +310,18 @@ export default class DailyData extends Component {
     if (slider === 'goal') {
       this.setState({ [type]: { ...this.state[type], goalScore: newScore } });
     } else if (slider === 'default') {
-      this.setState({ [type]: { ...this.state[type], defaultScore: newScore } });
+      switch (type) {
+        case 'Body': this.setState({ body: { ...this.state.body, defaultScore: newScore } });;
+          break;
+        case 'Creativity': this.setState({ creativity: { ...this.state.creativity, defaultScore: newScore } });;
+          break;
+        case 'Learning': this.setState({ learning: { ...this.state.learning, defaultScore: newScore } });;
+          break;
+        case 'Sociality': this.setState({ sociality: { ...this.state.sociality, defaultScore: newScore } });;
+          break;
+        case 'Mind': this.setState({ mind: { ...this.state.mind, defaultScore: newScore } });;
+          break;
+      }
     }
   }
 
