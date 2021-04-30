@@ -162,11 +162,18 @@ export default class DailyData extends Component {
 
   componentDidMount() {
     this.retriveData();
-    this.interval = setInterval(() => this.newDayReset(), 5000);
+    this.calculateMeans();
+    this.retriveData()
+    this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset }; }, 5000);
   }
 
-  retriveData() {
+  isNewDay() {
+    // if it's new day and after 4am returns true
+    return (new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() !== this.state.date
+      && 4 <= new Date().getHours())
+  }
 
+  calculateMeans() {
     const PreviousWeeks = [
       new Date().getDate() - 6 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
       new Date().getDate() - 5 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
@@ -225,8 +232,9 @@ export default class DailyData extends Component {
         },
       }));
     });
+  }
 
-
+  retriveData() {
     AsyncStorage.getItem(this.state.date)
       .then((value) => {
         const data = JSON.parse(value);
@@ -267,39 +275,35 @@ export default class DailyData extends Component {
   };
 
   newDayReset() {
-    // if (new day and after 4am) {reset}
-    if (new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() !== this.state.date
-      && 4 <= new Date().getHours()
-    ) {
-      this.setState((prevState) => ({
-        body: {
-          ...prevState.body,
-          defaultScore: .5,
-          goalScore: .5,
-        },
-        creativity: {
-          ...prevState.creativity,
-          defaultScore: .5,
-          goalScore: .5,
-        },
-        learning: {
-          ...prevState.learning,
-          defaultScore: .5,
-          goalScore: .5,
-        },
-        sociality: {
-          ...prevState.sociality,
-          defaultScore: .5,
-          goalScore: .5,
-        },
-        mind: {
-          ...prevState.mind,
-          defaultScore: .5,
-          goalScore: .5,
-        },
-        date: new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
-      }));
-    }
+    this.setState((prevState) => ({
+      body: {
+        ...prevState.body,
+        defaultScore: .5,
+        goalScore: .5,
+      },
+      creativity: {
+        ...prevState.creativity,
+        defaultScore: .5,
+        goalScore: .5,
+      },
+      learning: {
+        ...prevState.learning,
+        defaultScore: .5,
+        goalScore: .5,
+      },
+      sociality: {
+        ...prevState.sociality,
+        defaultScore: .5,
+        goalScore: .5,
+      },
+      mind: {
+        ...prevState.mind,
+        defaultScore: .5,
+        goalScore: .5,
+      },
+      date: new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
+    }));
+
   }
 
   componentWillUnmount() {
@@ -310,16 +314,17 @@ export default class DailyData extends Component {
     if (slider === 'goal') {
       this.setState({ [type]: { ...this.state[type], goalScore: newScore } });
     } else if (slider === 'default') {
+      const newIntScore = parseInt(newScore)
       switch (type) {
-        case 'Body': this.setState({ body: { ...this.state.body, defaultScore: newScore } });;
+        case 'Body': this.setState({ body: { ...this.state.body, defaultScore: newIntScore } });;
           break;
-        case 'Creativity': this.setState({ creativity: { ...this.state.creativity, defaultScore: newScore } });;
+        case 'Creativity': this.setState({ creativity: { ...this.state.creativity, defaultScore: newIntScore } });;
           break;
-        case 'Learning': this.setState({ learning: { ...this.state.learning, defaultScore: newScore } });;
+        case 'Learning': this.setState({ learning: { ...this.state.learning, defaultScore: newIntScore } });;
           break;
-        case 'Sociality': this.setState({ sociality: { ...this.state.sociality, defaultScore: newScore } });;
+        case 'Sociality': this.setState({ sociality: { ...this.state.sociality, defaultScore: newIntScore } });;
           break;
-        case 'Mind': this.setState({ mind: { ...this.state.mind, defaultScore: newScore } });;
+        case 'Mind': this.setState({ mind: { ...this.state.mind, defaultScore: newIntScore } });;
           break;
       }
     }
