@@ -12,7 +12,7 @@ export default class GeneralSlider extends Component {
 
     return (
       <View style={styles.card} >
-        <Slider
+        <Slider //                               Black dot showing mean
           style={styles.mean}
           disabled={true}
           step={1}
@@ -30,7 +30,7 @@ export default class GeneralSlider extends Component {
             width: 5,
             height: 25
           }}
-        /><Slider
+        /><Slider //                             Actual slider
           style={styles.slider}
           step={1}
           disabled={false}
@@ -57,15 +57,15 @@ export default class GeneralSlider extends Component {
           }}
         />
         <View style={{ width: '100%' }}>
-          <Text style={{
+          <Text style={{ //                      Type of the slider 
             fontSize: 20, color: 'grey'
           }}>{type}</Text>
-          <Text style={{
+          <Text style={{ //                      Description 
             fontStyle: 'italic', color: 'grey'
           }}>
-            {this.props.typeData.pep}
+            {this.props.typeData.description}
           </Text></View>
-        {!noGoal && (
+        {!noGoal && ( //                         Goal slider and description (currently unused)
           <>
             <Text>
               {this.props.typeData.goal.name}
@@ -129,7 +129,7 @@ export default class GeneralSlider extends Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ //            Styling
   slider: { width: '97%', height: 50 },
   mean: { position: 'absolute', width: '90%', height: 80, marginTop: -15, marginHorizontal: 20, },
   card: {

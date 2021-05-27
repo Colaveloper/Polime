@@ -1,8 +1,7 @@
 Authorize file transfer and debugging on your mobile
 
-CD TO THE RIGHT FOLDER (cd POLIME)
-
-then paste and run:
+in terminals 1 and 2:
+cd POLIME
 
 in terminal 1: 
 npx react-native start

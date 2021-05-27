@@ -3,22 +3,11 @@ import { StyleSheet, Text, Button, Alert, Pressable, View } from 'react-native';
 import GeneralSlider from './GeneralSlider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// TO PRINT THE STORAGE
-AsyncStorage.getAllKeys().then((keyArray) => {
-  AsyncStorage.multiGet(keyArray).then((keyValArray) => {
-    let myStorage = {};
-    for (let keyVal of keyValArray) {
-      myStorage[keyVal[0]] = keyVal[1]
-    }
-    // console.log('CURRENT STORAGE: ', myStorage);
-  })
-});
-
 export default class DailyData extends Component {
-  state = {
+  state = { //                                   Current data on the 5 categories and date
     body: {
       type: 'Body',
-      pep: 'Fittness, sleep and health',
+      description: 'Fittness, sleep and health',
       color: "#76B947",
 
       goal: {
@@ -32,13 +21,13 @@ export default class DailyData extends Component {
       goalScore: 0,
       defaultScore: 1,
 
-      get defaultMaxValue() {
+      get defaultMaxValue() { // TODO remove
         return 20 - this.goal.maxValue;
       },
     },
     creativity: {
       type: 'Creativity',
-      pep: 'Art, ingenuity and code',
+      description: 'Art, ingenuity and code',
       color: "#37ADE4",
 
       goal: {
@@ -58,7 +47,7 @@ export default class DailyData extends Component {
     },
     learning: {
       type: 'Learning',
-      pep: 'School, language and coding',
+      description: 'School, language and coding',
       color: "#EB5656",
 
       goal: {
@@ -78,7 +67,7 @@ export default class DailyData extends Component {
     },
     sociality: {
       type: 'Sociality',
-      pep: 'Meet, socials and PR',
+      description: 'Meet, socials and PR',
       color: "#DA56ED",
 
       goal: {
@@ -98,7 +87,7 @@ export default class DailyData extends Component {
     },
     mind: {
       type: 'Mind',
-      pep: 'Awareness, entreprenuership, empathy',
+      description: 'Awareness, entreprenuership, empathy',
       color: "#EAAA39",
 
       goal: {
@@ -119,61 +108,53 @@ export default class DailyData extends Component {
     date: new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
   };
 
+  componentDidMount() { //                       Setup 
+    this.retriveData();
+    this.calculateMeans();
+    this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset }; }, 5000);
+  }
 
-  componentDidUpdate() {
-    const toSave = {
-      body: {
-        meanScore: this.state.body.meanScore,
-        goalScore: this.state.body.goalScore,
-        defaultScore: this.state.body.defaultScore,
-      },
-      creativity: {
-        meanScore: this.state.creativity.meanScore,
-        goalScore: this.state.creativity.goalScore,
-        defaultScore: this.state.creativity.defaultScore,
-      },
-      learning: {
-        meanScore: this.state.learning.meanScore,
-        goalScore: this.state.learning.goalScore,
-        defaultScore: this.state.learning.defaultScore,
-      },
-      sociality: {
-        meanScore: this.state.sociality.meanScore,
-        goalScore: this.state.sociality.goalScore,
-        defaultScore: this.state.sociality.defaultScore,
-      },
-      mind: {
-        meanScore: this.state.mind.meanScore,
-        goalScore: this.state.mind.goalScore,
-        defaultScore: this.state.mind.defaultScore,
-      },
-      date: this.state.date
-    }
-    AsyncStorage.setItem(this.state.date, JSON.stringify(toSave)) // save everything in Async Storage
-      .then(() => {
-        null;
+  retriveData() { //                             Retrives data from AsyncStorage and sets them in State
+    AsyncStorage.getItem(this.state.date)
+      .then((value) => {
+        const data = JSON.parse(value);
+        value === null
+          ? null
+          : this.setState((prevState) => ({
+            body: {
+              ...prevState.body,
+              defaultScore: data.body.defaultScore,
+              goalScore: data.body.goalScore,
+              // meanScore: 
+            },
+            creativity: {
+              ...prevState.creativity,
+              defaultScore: data.creativity.defaultScore,
+              goalScore: data.creativity.goalScore,
+            },
+            learning: {
+              ...prevState.learning,
+              defaultScore: data.learning.defaultScore,
+              goalScore: data.learning.goalScore,
+            },
+            sociality: {
+              ...prevState.sociality,
+              defaultScore: data.sociality.defaultScore,
+              goalScore: data.sociality.goalScore,
+            },
+            mind: {
+              ...prevState.mind,
+              defaultScore: data.mind.defaultScore,
+              goalScore: data.mind.goalScore,
+            },
+          }));
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
 
-
-
-  componentDidMount() {
-    this.retriveData();
-    this.calculateMeans();
-    this.retriveData()
-    this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset }; }, 5000);
-  }
-
-  isNewDay() {
-    // if it's new day and after 4am returns true
-    return (new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() !== this.state.date
-      && 4 <= new Date().getHours())
-  }
-
-  calculateMeans() {
+  calculateMeans() { //                          Calculates the means and sets them in State
     const PreviousWeeks = [
       new Date().getDate() - 6 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
       new Date().getDate() - 5 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
@@ -234,47 +215,13 @@ export default class DailyData extends Component {
     });
   }
 
-  retriveData() {
-    AsyncStorage.getItem(this.state.date)
-      .then((value) => {
-        const data = JSON.parse(value);
-        value === null
-          ? null
-          : this.setState((prevState) => ({
-            body: {
-              ...prevState.body,
-              defaultScore: data.body.defaultScore,
-              goalScore: data.body.goalScore,
-              // meanScore: 
-            },
-            creativity: {
-              ...prevState.creativity,
-              defaultScore: data.creativity.defaultScore,
-              goalScore: data.creativity.goalScore,
-            },
-            learning: {
-              ...prevState.learning,
-              defaultScore: data.learning.defaultScore,
-              goalScore: data.learning.goalScore,
-            },
-            sociality: {
-              ...prevState.sociality,
-              defaultScore: data.sociality.defaultScore,
-              goalScore: data.sociality.goalScore,
-            },
-            mind: {
-              ...prevState.mind,
-              defaultScore: data.mind.defaultScore,
-              goalScore: data.mind.goalScore,
-            },
-          }));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  isNewDay() { //                                Returns true after 4am of a new day
+    var isNewDay = new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() !== this.state.date
+    var isAfterFour = 4 <= new Date().getHours()
+    return (isNewDay && isAfterFour)
+  }
 
-  newDayReset() {
+  newDayReset() { //                             Restores State to default values if isNewDay()
     this.setState((prevState) => ({
       body: {
         ...prevState.body,
@@ -306,11 +253,7 @@ export default class DailyData extends Component {
 
   }
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  slidingHandler = (newScore, type, slider) => {
+  slidingHandler(newScore, type, slider) { //    Updates State when sliding 
     if (slider === 'goal') {
       this.setState({ [type]: { ...this.state[type], goalScore: newScore } });
     } else if (slider === 'default') {
@@ -328,13 +271,56 @@ export default class DailyData extends Component {
           break;
       }
     }
+    this.save()
   }
 
+  save() { //                                    Saves on AsyncStorage when slidingHandler is called
+    const toSave = {
+      body: {
+        meanScore: this.state.body.meanScore,
+        goalScore: this.state.body.goalScore,
+        defaultScore: this.state.body.defaultScore,
+      },
+      creativity: {
+        meanScore: this.state.creativity.meanScore,
+        goalScore: this.state.creativity.goalScore,
+        defaultScore: this.state.creativity.defaultScore,
+      },
+      learning: {
+        meanScore: this.state.learning.meanScore,
+        goalScore: this.state.learning.goalScore,
+        defaultScore: this.state.learning.defaultScore,
+      },
+      sociality: {
+        meanScore: this.state.sociality.meanScore,
+        goalScore: this.state.sociality.goalScore,
+        defaultScore: this.state.sociality.defaultScore,
+      },
+      mind: {
+        meanScore: this.state.mind.meanScore,
+        goalScore: this.state.mind.goalScore,
+        defaultScore: this.state.mind.defaultScore,
+      },
+      date: this.state.date
+    }
+    AsyncStorage.setItem(this.state.date, JSON.stringify(toSave)) // save everything in Async Storage
+      .then(() => {
+        null;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
   render() {
     return (
       <>
         <Text style={{ color: 'white', fontSize: 24 }}>{this.state.date}{4 <= new Date().getHours() ? '' : ': go to sleep my boy'}</Text>
+        {/* <Text style={{ color: 'white', fontSize: 24 }}>{this.isNewDay() ? 'new day' : 'same day'} {new Date().getHours()}h</Text> */}
         {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
           <GeneralSlider
             showOnlySlider={this.props.showOnlySlider}
@@ -348,3 +334,20 @@ export default class DailyData extends Component {
     );
   }
 }
+
+
+
+
+//  TO PRINT THE STORAGE
+
+/*
+    AsyncStorage.getAllKeys().then((keyArray) => {
+      AsyncStorage.multiGet(keyArray).then((keyValArray) => {
+        let myStorage = {};
+        for (let keyVal of keyValArray) {
+          myStorage[keyVal[0]] = keyVal[1]
+        }
+        console.log('CURRENT STORAGE: ', myStorage);
+      })
+    });
+*/
