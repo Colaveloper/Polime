@@ -111,6 +111,7 @@ export default class DailyData extends Component {
   componentDidMount() { //                       Setup 
     this.retriveData();
     this.calculateMeans();
+    this.retriveData(); // TODO try to remove duplicate
     this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset }; }, 5000);
   }
 
