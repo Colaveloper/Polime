@@ -119,14 +119,14 @@ export default class DailyData extends Component {
     AsyncStorage.getItem(this.state.date)
       .then((value) => {
         const data = JSON.parse(value);
-        value === null
+        Object.keys(value).length < 2
           ? null
           : this.setState((prevState) => ({
             body: {
               ...prevState.body,
               defaultScore: data.body.defaultScore,
               goalScore: data.body.goalScore,
-              // meanScore: 
+              // TODO save meanScore: 
             },
             creativity: {
               ...prevState.creativity,
@@ -254,7 +254,7 @@ export default class DailyData extends Component {
 
   }
 
-  slidingHandler(newScore, type, slider) { //    Updates State when sliding 
+  slidingHandler = (newScore, type, slider) => { // Updates State when sliding 
     if (slider === 'goal') {
       this.setState({ [type]: { ...this.state[type], goalScore: newScore } });
     } else if (slider === 'default') {
@@ -272,7 +272,6 @@ export default class DailyData extends Component {
           break;
       }
     }
-    this.save()
   }
 
   save() { //                                    Saves on AsyncStorage when slidingHandler is called
@@ -313,6 +312,10 @@ export default class DailyData extends Component {
       });
   }
 
+  componentDidUpdate() {
+    this.save()
+  }
+
   componentWillUnmount() {
     clearInterval(this.interval);
   }
@@ -322,10 +325,10 @@ export default class DailyData extends Component {
       <>
         <Text style={{ color: 'white', fontSize: 24 }}>{this.state.date}{4 <= new Date().getHours() ? '' : ': go to sleep my boy'}</Text>
         {/* <Text style={{ color: 'white', fontSize: 24 }}>{this.isNewDay() ? 'new day' : 'same day'} {new Date().getHours()}h</Text> */}
+        <Text style={{ color: 'white', fontSize: 24 }}>{toString(this.state.body)}</Text>
         {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
           <GeneralSlider
             showOnlySlider={this.props.showOnlySlider}
-            focusOnMe={this.props.focusOnMe}
             slidingHandler={this.slidingHandler}
             key={type}
             typeData={this.state[type]}

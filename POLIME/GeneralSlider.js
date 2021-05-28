@@ -30,7 +30,8 @@ export default class GeneralSlider extends Component {
             width: 5,
             height: 25
           }}
-        /><Slider //                             Actual slider
+        />
+        <Slider //                             Actual slider
           style={styles.slider}
           step={1}
           disabled={false}
@@ -149,12 +150,18 @@ const styles = StyleSheet.create({ //            Styling
 
 });
 
-{/* <GestureRecognizer
-          onSwipeUp={() => this.props.focusOnMe(type)}
-          onSwipeDown={() => this.props.focusOnMe('all')}
-          style={[
-            styles.card,
-            this.props.showOnlySlider === type
-              ? { height: '80%', marginTop: -60 }
-              : null,
-          ]}></GestureRecognizer> */}
+
+
+//    GESTURE RECOGNISER DIV
+
+/*
+      <GestureRecognizer
+        onSwipeUp={() => this.props.focusOnMe(type)}
+        onSwipeDown={() => this.props.focusOnMe('all')}
+        style={[
+          styles.card,
+          this.props.showOnlySlider === type
+            ? { height: '80%', marginTop: -60 }
+            : null,
+        ]}></GestureRecognizer>
+*/
