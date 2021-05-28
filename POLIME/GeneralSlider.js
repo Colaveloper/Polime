@@ -12,13 +12,14 @@ export default class GeneralSlider extends Component {
 
     return (
       <View style={styles.card} >
+
         <Slider //                               Black dot showing mean
           style={styles.mean}
           disabled={true}
           step={1}
           maximumValue={20}
           thumbTintColor={score > this.props.typeData.meanScore ? this.props.typeData.color : 'grey'}
-          value={this.props.typeData.meanScore - .5}
+          value={parseInt(this.props.typeData.meanScore) + .3}
           animateTransitions={true}
           minimumTrackTintColor={'rgba(0, 0, 0, 0)'}
           maximumTrackTintColor={'rgba(0, 0, 0, 0)'}
@@ -31,17 +32,18 @@ export default class GeneralSlider extends Component {
             height: 25
           }}
         />
-        <Slider //                             Actual slider
+
+        <Slider //                               Actual slider
           style={styles.slider}
           step={1}
           disabled={false}
           maximumValue={20}
           thumbTintColor={'rgba(0, 0, 0, 0)'}
-          value={parseInt(score)}
+          value={score}
           animateTransitions={true}
           onValueChange={(defaultScore) => {
-            if (parseInt(defaultScore) != this.props.typeData.defaultScore) {
-              this.props.slidingHandler(parseInt(defaultScore), type, 'default');
+            if (defaultScore != this.props.typeData.defaultScore) {
+              this.props.slidingHandler(defaultScore, type, 'default');
             }
           }}
           allowTouchTrack={true}
@@ -52,11 +54,12 @@ export default class GeneralSlider extends Component {
             borderRadius: 10,
           }}
           thumbStyle={{
-            width: 5,
+            width: 0,
             height: 5,
             zIndex: 2,
           }}
         />
+
         <View style={{ width: '100%' }}>
           <Text style={{ //                      Type of the slider 
             fontSize: 20, color: 'grey'
@@ -66,6 +69,7 @@ export default class GeneralSlider extends Component {
           }}>
             {this.props.typeData.description}
           </Text></View>
+
         {!noGoal && ( //                         Goal slider and description (currently unused)
           <>
             <Text>
@@ -124,6 +128,7 @@ export default class GeneralSlider extends Component {
                 width: 0,
               }}
             /></>)}
+
       </View>
 
     )
@@ -132,7 +137,7 @@ export default class GeneralSlider extends Component {
 
 const styles = StyleSheet.create({ //            Styling
   slider: { width: '97%', height: 50 },
-  mean: { position: 'absolute', width: '90%', height: 80, marginTop: -15, marginHorizontal: 20, },
+  mean: { position: 'absolute', width: '97%', height: 80, marginTop: -15, marginHorizontal: 20, },
   card: {
     backgroundColor: 'white',
     width: '100%',
@@ -147,7 +152,6 @@ const styles = StyleSheet.create({ //            Styling
     paddingBottom: 10,
     paddingHorizontal: 15,
   },
-
 });
 
 

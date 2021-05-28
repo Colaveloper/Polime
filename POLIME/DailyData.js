@@ -325,7 +325,6 @@ export default class DailyData extends Component {
       <>
         <Text style={{ color: 'white', fontSize: 24 }}>{this.state.date}{4 <= new Date().getHours() ? '' : ': go to sleep my boy'}</Text>
         {/* <Text style={{ color: 'white', fontSize: 24 }}>{this.isNewDay() ? 'new day' : 'same day'} {new Date().getHours()}h</Text> */}
-        <Text style={{ color: 'white', fontSize: 24 }}>{toString(this.state.body)}</Text>
         {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
           <GeneralSlider
             showOnlySlider={this.props.showOnlySlider}
