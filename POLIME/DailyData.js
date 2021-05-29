@@ -7,7 +7,7 @@ export default class DailyData extends Component {
   state = { //                                   Current data on the 5 categories and date
 
     body: {
-      type: 'Body',
+      type: 'body',
       description: 'Fittness, sleep and health',
       color: "#76B947",
       goal: {
@@ -22,7 +22,7 @@ export default class DailyData extends Component {
     },
 
     creativity: {
-      type: 'Creativity',
+      type: 'creativity',
       description: 'Art, ingenuity and code',
       color: "#37ADE4",
       goal: {
@@ -37,7 +37,7 @@ export default class DailyData extends Component {
     },
 
     learning: {
-      type: 'Learning',
+      type: 'learning',
       description: 'School, language and coding',
       color: "#EB5656",
       goal: {
@@ -52,7 +52,7 @@ export default class DailyData extends Component {
     },
 
     sociality: {
-      type: 'Sociality',
+      type: 'sociality',
       description: 'Meet, socials and PR',
       color: "#DA56ED",
       goal: {
@@ -67,7 +67,7 @@ export default class DailyData extends Component {
     },
 
     mind: {
-      type: 'Mind',
+      type: 'mind',
       description: 'Awareness, entreprenuership, empathy',
       color: "#EAAA39",
       goal: {
@@ -104,7 +104,6 @@ export default class DailyData extends Component {
               ...prevState.body,
               defaultScore: data.body.defaultScore,
               goalScore: data.body.goalScore,
-              // TODO save meanScore: 
             },
             creativity: {
               ...prevState.creativity,
@@ -232,28 +231,13 @@ export default class DailyData extends Component {
 
   }
 
-  slidingHandler = (newScore, type, slider) => { // Updates State when sliding 
-    if (slider === 'goal') {
-      this.setState({ [type]: { ...this.state[type], goalScore: newScore } });
-    } else if (slider === 'default') {
-      const newIntScore = parseInt(newScore)
-      switch (type) {
-        case 'Body': this.setState({ body: { ...this.state.body, defaultScore: newIntScore } });;
-          break;
-        case 'Creativity': this.setState({ creativity: { ...this.state.creativity, defaultScore: newIntScore } });;
-          break;
-        case 'Learning': this.setState({ learning: { ...this.state.learning, defaultScore: newIntScore } });;
-          break;
-        case 'Sociality': this.setState({ sociality: { ...this.state.sociality, defaultScore: newIntScore } });;
-          break;
-        case 'Mind': this.setState({ mind: { ...this.state.mind, defaultScore: newIntScore } });;
-          break;
-      }
-    }
+  slidingHandler = (newScore, type, kindOfSlider) => { // Updates State when sliding 
+    this.setState({ [type]: { ...this.state[type], [kindOfSlider]: newScore } });
+
   }
 
   save() { //                                    Saves on AsyncStorage when slidingHandler is called
-    const toSave = {
+    const toSave = { // TODO save only what has been updated
       body: {
         meanScore: this.state.body.meanScore,
         goalScore: this.state.body.goalScore,
@@ -291,7 +275,7 @@ export default class DailyData extends Component {
   }
 
   componentDidUpdate() {
-    this.save()
+    this.save() //TODO implement autosave 
   }
 
   componentWillUnmount() {

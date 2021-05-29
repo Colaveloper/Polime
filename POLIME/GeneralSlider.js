@@ -43,7 +43,7 @@ export default class GeneralSlider extends Component {
           animateTransitions={true}
           onValueChange={(defaultScore) => {
             if (defaultScore != this.props.typeData.defaultScore) {
-              this.props.slidingHandler(defaultScore, type, 'default');
+              this.props.slidingHandler(defaultScore, type, 'defaultScore');
             }
           }}
           allowTouchTrack={true}
@@ -90,7 +90,7 @@ export default class GeneralSlider extends Component {
               animateTransitions={true}
               onValueChange={(goalScore) => {
                 if (goalScore != this.props.typeData.goalScore) {
-                  this.props.slidingHandler(goalScore, type, 'goal');
+                  this.props.slidingHandler(goalScore, type, 'goalScore');
                 }
               }}
               allowTouchTrack={true}
@@ -106,8 +106,7 @@ export default class GeneralSlider extends Component {
             />
             <Slider
               style={styles.slider}
-              maximumValue=
-              {this.props.typeData.defaultMaxValue}
+              maximumValue={10}
               step={1}
               thumbTintColor={'rgba(0, 0, 0, 0)'}
               value={this.props.typeData.defaultScore}
