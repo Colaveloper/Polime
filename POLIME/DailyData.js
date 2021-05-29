@@ -105,7 +105,9 @@ export default class DailyData extends Component {
         return 20 - this.goal.maxValue;
       },
     },
-    date: new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
+    date: this.isNewDay ?
+      new Date().getDate() - 1 + '/' + new Date().getMonth() + '/' + new Date().getFullYear() :
+      new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
   };
 
   componentDidMount() { //                       Setup 
@@ -323,7 +325,7 @@ export default class DailyData extends Component {
   render() {
     return (
       <>
-        <Text style={{ color: 'white', fontSize: 24 }}>{this.state.date}{4 <= new Date().getHours() ? '' : ': go to sleep my boy'}</Text>
+        <Text style={{ color: 'white', fontSize: 24 }}>{this.state.date}{this.isNewDay ? ': go to sleep my boy' : ''}</Text>
         {/* <Text style={{ color: 'white', fontSize: 24 }}>{this.isNewDay() ? 'new day' : 'same day'} {new Date().getHours()}h</Text> */}
         {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
           <GeneralSlider
