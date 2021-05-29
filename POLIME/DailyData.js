@@ -5,115 +5,91 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class DailyData extends Component {
   state = { //                                   Current data on the 5 categories and date
+
     body: {
       type: 'Body',
       description: 'Fittness, sleep and health',
       color: "#76B947",
-
       goal: {
         name: 'goalName',
         maxValue: 0,
         end: 'end-date',
         description: 'description',
       },
-
       meanScore: 0,
       goalScore: 0,
       defaultScore: 1,
-
-      get defaultMaxValue() { // TODO remove
-        return 20 - this.goal.maxValue;
-      },
     },
+
     creativity: {
       type: 'Creativity',
       description: 'Art, ingenuity and code',
       color: "#37ADE4",
-
       goal: {
         name: 'goalName',
         maxValue: 0,
         end: 'end-date',
         description: 'description',
       },
-
       meanScore: 0,
       goalScore: 0,
       defaultScore: 1,
-
-      get defaultMaxValue() {
-        return 20 - this.goal.maxValue;
-      },
     },
+
     learning: {
       type: 'Learning',
       description: 'School, language and coding',
       color: "#EB5656",
-
       goal: {
         name: 'goalName',
         maxValue: 0,
         end: 'end-date',
         description: 'description',
       },
-
       meanScore: 0,
       goalScore: 0,
       defaultScore: 1,
-
-      get defaultMaxValue() {
-        return 20 - this.goal.maxValue;
-      },
     },
+
     sociality: {
       type: 'Sociality',
       description: 'Meet, socials and PR',
       color: "#DA56ED",
-
       goal: {
         name: 'goalName',
         maxValue: 0,
         end: 'end-date',
         description: 'description',
       },
-
       meanScore: 0,
       goalScore: 0,
       defaultScore: 1,
-
-      get defaultMaxValue() {
-        return 20 - this.goal.maxValue;
-      },
     },
+
     mind: {
       type: 'Mind',
       description: 'Awareness, entreprenuership, empathy',
       color: "#EAAA39",
-
       goal: {
         name: 'goalName',
         maxValue: 0,
         end: 'end-date',
         description: '',
       },
-
       meanScore: 0,
       goalScore: 0,
       defaultScore: 1,
-
-      get defaultMaxValue() {
-        return 20 - this.goal.maxValue;
-      },
     },
+
     date: this.isNewDay ?
       new Date().getDate() - 1 + '/' + new Date().getMonth() + '/' + new Date().getFullYear() :
       new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
+
   };
 
   componentDidMount() { //                       Setup 
     this.retriveData();
     this.calculateMeans();
-    this.retriveData(); // TODO try to remove duplicate
     this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset }; }, 5000);
   }
 
@@ -326,13 +302,11 @@ export default class DailyData extends Component {
     return (
       <>
         <Text style={{ color: 'white', fontSize: 24 }}>{this.state.date}{this.isNewDay ? ': go to sleep my boy' : ''}</Text>
-        {/* <Text style={{ color: 'white', fontSize: 24 }}>{this.isNewDay() ? 'new day' : 'same day'} {new Date().getHours()}h</Text> */}
         {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
           <GeneralSlider
-            showOnlySlider={this.props.showOnlySlider}
-            slidingHandler={this.slidingHandler}
             key={type}
             typeData={this.state[type]}
+            slidingHandler={this.slidingHandler}
           />
         ))}
       </>
