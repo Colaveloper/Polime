@@ -132,7 +132,7 @@ export default class DailyData extends Component {
       });
   };
 
-  calculateMeans() { //                          Calculates the means and sets them in State
+  calculateMeans = () => { //                          Calculates the means and sets them in State
     const PreviousWeeks = [
       new Date().getDate() - 6 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
       new Date().getDate() - 5 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
@@ -233,7 +233,6 @@ export default class DailyData extends Component {
 
   slidingHandler = (newScore, type, kindOfSlider) => { // Updates State when sliding 
     this.setState({ [type]: { ...this.state[type], [kindOfSlider]: newScore } });
-
   }
 
   save() { //                                    Saves on AsyncStorage when slidingHandler is called
@@ -291,6 +290,7 @@ export default class DailyData extends Component {
             key={type}
             typeData={this.state[type]}
             slidingHandler={this.slidingHandler}
+            calculateMeans={this.calculateMeans}
           />
         ))}
       </>

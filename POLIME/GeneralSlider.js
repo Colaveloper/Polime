@@ -46,6 +46,7 @@ export default class GeneralSlider extends Component {
               this.props.slidingHandler(defaultScore, type, 'defaultScore');
             }
           }}
+          onSlidingComplete={(s) => this.props.calculateMeans()}
           allowTouchTrack={true}
           minimumTrackTintColor={this.props.typeData.color}
           maximumTrackTintColor={'#e5e5e5'}
