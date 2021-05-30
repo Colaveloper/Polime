@@ -81,10 +81,9 @@ export default class DailyData extends Component {
       defaultScore: 1,
     },
 
-    date: this.isNewDay ?
-      new Date().getDate() - 1 + '/' + new Date().getMonth() + '/' + new Date().getFullYear() :
-      new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
-
+    date: 4 <= new Date().getHours() ? // if after 4am
+      new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() :
+      new Date().getDate() - 1 + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
   };
 
   componentDidMount() { //                       Setup 
@@ -281,11 +280,21 @@ export default class DailyData extends Component {
     clearInterval(this.interval);
   }
 
+  getWeekNumber() {
+    // code from https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
+    var d = new Date()
+    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    var fullYear = d.getFullYear()
+    return ('Week ' + Math.ceil((((d - yearStart) / 86400000) + 1) / 7) + ' of ' + fullYear)
+  }
+
   render() {
     return (
       <>
-        <Text style={{ color: 'white', fontSize: 24 }}>{this.state.date}{this.isNewDay ? ': go to sleep my boy' : ''}</Text>
-        {['body', 'creativity', 'learning', 'sociality', 'mind'].map((type) => (
+        <Text style={{ color: 'white', fontSize: 24 }}>{this.getWeekNumber()}</Text>
+        {['mind', 'body', 'creativity', 'sociality', 'learning'].map((type) => (
           <GeneralSlider
             key={type}
             typeData={this.state[type]}
