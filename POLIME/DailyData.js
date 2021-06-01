@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, Button, Alert, Pressable, View } from 'react-native';
 import GeneralSlider from './GeneralSlider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { std } from 'mathjs'
 
 export default class DailyData extends Component {
   state = { //                                   Current data on the 5 categories and date
@@ -131,7 +132,7 @@ export default class DailyData extends Component {
       });
   };
 
-  calculateMeans = () => { //                          Calculates the means and sets them in State
+  calculateMeans = () => { //                    Calculates the means and sets them in State
     const PreviousWeeks = [
       new Date().getDate() - 6 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
       new Date().getDate() - 5 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
@@ -290,10 +291,21 @@ export default class DailyData extends Component {
     return ('Week ' + Math.ceil((((d - yearStart) / 86400000) + 1) / 7) + ' of ' + fullYear)
   }
 
+  getStandardDeviation() {
+    const math = require('mathjs')
+    var balance = parseInt(100 - math.std(this.state.mind.defaultScore,
+      this.state.body.defaultScore,
+      this.state.creativity.defaultScore,
+      this.state.sociality.defaultScore,
+      this.state.learning.defaultScore) * 10);
+    return ("Balance: " + balance + '%')
+  }
+
   render() {
     return (
       <>
         <Text style={{ color: 'white', fontSize: 24 }}>{this.getWeekNumber()}</Text>
+        <Text style={{ color: 'white', fontSize: 24 }}>{this.getStandardDeviation()}</Text>
         {['mind', 'body', 'creativity', 'sociality', 'learning'].map((type) => (
           <GeneralSlider
             key={type}
