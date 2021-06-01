@@ -4,6 +4,18 @@ import GeneralSlider from './GeneralSlider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { std } from 'mathjs'
 
+AsyncStorage.getAllKeys().then((keyArray) => {
+  AsyncStorage.multiGet(keyArray).then((keyValArray) => {
+    let myStorage = {};
+    for (let keyVal of keyValArray) {
+      myStorage[keyVal[0]] = keyVal[1]
+    }
+    console.log('CURRENT STORAGE: ', myStorage);
+  })
+});
+
+var yesterday = new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24)
+
 export default class DailyData extends Component {
   state = { //                                   Current data on the 5 categories and date
 
@@ -84,7 +96,7 @@ export default class DailyData extends Component {
 
     date: 4 <= new Date().getHours() ? // if after 4am
       new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() :
-      new Date().getDate() - 1 + '/' + new Date().getMonth() + '/' + new Date().getFullYear()
+      yesterday.getDate() + '/' + yesterday.getMonth() + '/' + yesterday.getFullYear()
   };
 
   componentDidMount() { //                       Setup 
@@ -147,8 +159,7 @@ export default class DailyData extends Component {
       back3days.getDate() - 3 + '/' + back3days.getMonth() + '/' + back3days.getFullYear(),
       back2days.getDate() - 2 + '/' + back2days.getMonth() + '/' + back2days.getFullYear(),
       yesterday.getDate() - 1 + '/' + yesterday.getMonth() + '/' + yesterday.getFullYear(),
-      new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
-    ]
+      this.state.date]
 
     AsyncStorage.multiGet(PreviousWeeks, (err, stores) => {
 
@@ -166,12 +177,11 @@ export default class DailyData extends Component {
 
         data == null
           ? null
-          : (meanBody += (data.body.defaultScore + data.body.goalScore) * (i + 1),
-            meanCreativity += (data.creativity.defaultScore + data.creativity.goalScore) * (i + 1),
-            meanLearning += (data.learning.defaultScore + data.learning.goalScore) * (i + 1),
-            meanSociality += (data.sociality.defaultScore + data.sociality.goalScore) * (i + 1),
-            meanMind += (data.mind.defaultScore + data.mind.goalScore) * (i + 1))
-
+          : (meanBody += (data.body.defaultScore) * (i + 1),
+            meanCreativity += (data.creativity.defaultScore) * (i + 1),
+            meanLearning += (data.learning.defaultScore) * (i + 1),
+            meanSociality += (data.sociality.defaultScore) * (i + 1),
+            meanMind += (data.mind.defaultScore) * (i + 1))
       });
 
       this.setState((prevState) => ({
