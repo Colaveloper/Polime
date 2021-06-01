@@ -133,13 +133,20 @@ export default class DailyData extends Component {
   };
 
   calculateMeans = () => { //                    Calculates the means and sets them in State
+    var back6days = new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24 * 6);
+    var back5days = new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24 * 5);
+    var back4days = new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24 * 4);
+    var back3days = new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24 * 3);
+    var back2days = new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24 * 2);
+    var yesterday = new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24);
+
     const PreviousWeeks = [
-      new Date().getDate() - 6 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
-      new Date().getDate() - 5 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
-      new Date().getDate() - 4 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
-      new Date().getDate() - 3 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
-      new Date().getDate() - 2 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
-      new Date().getDate() - 1 + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
+      back6days.getDate() - 6 + '/' + back6days.getMonth() + '/' + back6days.getFullYear(),
+      back5days.getDate() - 5 + '/' + back5days.getMonth() + '/' + back5days.getFullYear(),
+      back4days.getDate() - 4 + '/' + back4days.getMonth() + '/' + back4days.getFullYear(),
+      back3days.getDate() - 3 + '/' + back3days.getMonth() + '/' + back3days.getFullYear(),
+      back2days.getDate() - 2 + '/' + back2days.getMonth() + '/' + back2days.getFullYear(),
+      yesterday.getDate() - 1 + '/' + yesterday.getMonth() + '/' + yesterday.getFullYear(),
       new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear(),
     ]
 
