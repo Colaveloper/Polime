@@ -10,7 +10,7 @@ The active process happens inside your head, and Polime has the only purpose of 
 
 ## How it works
 
-5 aspects of life are considered (each one with his own slider):
+5 aspects of life are considered (each one with its own slider):
 
 <img src="https://user-images.githubusercontent.com/63930332/120335726-006dc480-c2f2-11eb-86b8-99015c3459fe.png" alt="Polime screenshot" width="300"/>
 
@@ -18,7 +18,7 @@ The sliders are used to declare your satisfaction.
 Satisfaction = what you've done / what you intend to do  
 The last two parameters are completely subjective, but not arbitrary. Having to think about them is the active process that most time-management app do instead of you. 
 
-Any other time management app can be excessively specific (e.g. it tells you: play the piano!). I chose to keep Polime as simple and generic as possible not to waste your precius time sheduling what to do. It's way more efficient and it increases awareness.
+Many other time management app can be excessively specific (e.g. it tells you: play the piano!). I chose to keep Polime as simple and generic as possible not to waste your precius time, sheduling your day on a to-do app. It's way more efficient and raises awareness when the active processes happens in your mind.
 
 ### Original Mock-Up
 https://xd.adobe.com/view/0cb75eac-5921-401e-bf37-ede1bc09aba7-59e4/
