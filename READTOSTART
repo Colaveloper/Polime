@@ -1,4 +1,5 @@
 Authorize file transfer and debugging on your mobile
+(https://reactnative.dev/docs/running-on-device)
 
 in terminals 1 and 2:
 cd POLIME
@@ -6,9 +7,10 @@ cd POLIME
 in terminal 1: 
 npx react-native start
 
+
 in terminal 2: 
-adb -s a3ddc49f reverse tcp:8081 tcp:8081
-("a3ddc49f" is the ID of my mobile ONLY)
+adb -s 13161JEC203853 reverse tcp:8081 tcp:8081
+("13161JEC203853" is the ID of my mobile ONLY)
 
 in terminal 2: 
 npx react-native run-android
