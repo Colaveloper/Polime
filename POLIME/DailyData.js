@@ -10,7 +10,7 @@ export default class DailyData extends Component {
   state = { //                                   Current data on the 5 categories and date
 
     body: {
-      type: 'body',
+      type: 'Body',
       description: 'Fittness, sleep and health',
       color: "#76B947",
       goal: {
@@ -25,7 +25,7 @@ export default class DailyData extends Component {
     },
 
     creativity: {
-      type: 'creativity',
+      type: 'Creativity',
       description: 'Art, ingenuity and code',
       color: "#37ADE4",
       goal: {
@@ -40,7 +40,7 @@ export default class DailyData extends Component {
     },
 
     learning: {
-      type: 'learning',
+      type: 'Learning',
       description: 'School, language and coding',
       color: "#EB5656",
       goal: {
@@ -55,7 +55,7 @@ export default class DailyData extends Component {
     },
 
     sociality: {
-      type: 'sociality',
+      type: 'Sociality',
       description: 'Meet, socials and PR',
       color: "#DA56ED",
       goal: {
@@ -70,7 +70,7 @@ export default class DailyData extends Component {
     },
 
     mind: {
-      type: 'mind',
+      type: 'Mind',
       description: 'Awareness, entreprenuership, empathy',
       color: "#EAAA39",
       goal: {
