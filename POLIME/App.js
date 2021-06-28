@@ -3,23 +3,9 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import { Notifications } from 'react-native-notifications';
 import DailyData from './DailyData';
 
 export default class App extends React.Component {
-  constructor() {
-    super();
-    // Request permissions on iOS, refresh token on Android
-    Notifications.registerRemoteNotifications();
-
-    Notifications.events().registerRemoteNotificationsRegistered((event: Registered) => {
-      // TODO: Send the token to my server so it could send back push notifications...
-      console.log("Device Token Received", event.deviceToken);
-    });
-    Notifications.events().registerRemoteNotificationsRegistrationFailed((event: RegistrationError) => {
-      console.error(event);
-    });
-  }
 
   render() {
     return (

@@ -3,6 +3,7 @@ import { StyleSheet, Text, Button, Alert, Pressable, View } from 'react-native';
 import GeneralSlider from './GeneralSlider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { std } from 'mathjs'
+import { Notifications } from 'react-native-notifications';
 
 var yesterday = new Date((new Date()).valueOf() - 1000 * 60 * 60 * 24)
 
@@ -10,7 +11,7 @@ export default class DailyData extends Component {
   state = { //                                   Current data on the 5 categories and date
 
     body: {
-      type: 'Body',
+      type: 'body',
       description: 'Fittness, sleep and health',
       color: "#76B947",
       goal: {
@@ -25,7 +26,7 @@ export default class DailyData extends Component {
     },
 
     creativity: {
-      type: 'Creativity',
+      type: 'creativity',
       description: 'Art, ingenuity and code',
       color: "#37ADE4",
       goal: {
@@ -40,7 +41,7 @@ export default class DailyData extends Component {
     },
 
     learning: {
-      type: 'Learning',
+      type: 'learning',
       description: 'School, language and coding',
       color: "#EB5656",
       goal: {
@@ -55,7 +56,7 @@ export default class DailyData extends Component {
     },
 
     sociality: {
-      type: 'Sociality',
+      type: 'sociality',
       description: 'Meet, socials and PR',
       color: "#DA56ED",
       goal: {
@@ -70,7 +71,7 @@ export default class DailyData extends Component {
     },
 
     mind: {
-      type: 'Mind',
+      type: 'mind',
       description: 'Awareness, entreprenuership, empathy',
       color: "#EAAA39",
       goal: {
@@ -92,7 +93,8 @@ export default class DailyData extends Component {
   componentDidMount() { //                       Setup 
     this.retriveData();
     this.calculateMeans();
-    this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset }; }, 5000);
+    this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset } }, 5000);
+    this.interval = setInterval(() => { this.lowerMeanNotify() }, 60000); //TODO make without this long interval 
   }
 
   retriveData() { //                             Retrives data from AsyncStorage and sets them in State
@@ -182,7 +184,6 @@ export default class DailyData extends Component {
         creativity: {
           ...prevState.creativity,
           meanScore: Math.floor(meanCreativity / 28)
-
         },
         learning: {
           ...prevState.learning,
@@ -306,6 +307,19 @@ export default class DailyData extends Component {
       this.state.sociality.defaultScore,
       this.state.learning.defaultScore) * 10);
     return ("Balance: " + balance + '%')
+  }
+
+  lowerMeanNotify() {
+    var means = [this.state.body.meanScore, this.state.creativity.meanScore, this.state.learning.meanScore, this.state.sociality.meanScore, this.state.mind.meanScore,]
+    var lowerMean = Math.min.apply(Math, means)
+    var lowerMeanIndex = means.indexOf(lowerMean)
+    var categories = ["body", "creativity", "learning", "sociality", "mind"]
+    var loweMeanCategory = categories[lowerMeanIndex]
+    Notifications.postLocalNotification({
+      title: "Take some time to care about " + loweMeanCategory,
+      body: loweMeanCategory + " has the lowest mean: only " + lowerMean * 5 + "%",
+      extra: "data"
+    });
   }
 
   render() {
