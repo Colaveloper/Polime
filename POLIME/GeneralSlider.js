@@ -47,7 +47,8 @@ export default class GeneralSlider extends Component {
             }
           }}
           onSlidingComplete={(s) => this.props.calculateMeans()}
-          allowTouchTrack={true}
+          // has to be false as long as the slider is in a scrollview 
+          allowTouchTrack={false}
           minimumTrackTintColor={this.props.typeData.color}
           maximumTrackTintColor={'#e5e5e5'}
           trackStyle={{

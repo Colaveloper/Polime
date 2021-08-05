@@ -93,8 +93,10 @@ export default class DailyData extends Component {
   componentDidMount() { //                       Setup 
     this.retriveData();
     this.calculateMeans();
-    this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset } }, 5000);
-    setTimeout(() => { console.log(this.lowerMeanNotify()); }, 5000);
+    // Check if it's a new day (every minute)
+    this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset } }, 60000);
+    // Notification with lower mean (after 5sec) 
+    setTimeout(() => { this.lowerMeanNotify(); }, 5000);
   }
 
   retriveData() { //                             Retrives data from AsyncStorage and sets them in State
@@ -325,8 +327,8 @@ export default class DailyData extends Component {
   render() {
     return (
       <>
-        <Text style={{ color: 'white', fontSize: 24 }}>{this.getWeekNumber()}</Text>
-        <Text style={{ color: 'white', fontSize: 24 }}>{this.getStandardDeviation()}</Text>
+        <Text style={styles.text}>{this.getWeekNumber()}</Text>
+        <Text style={styles.text}>{this.getStandardDeviation()}</Text>
         {['mind', 'body', 'creativity', 'sociality', 'learning'].map((type) => (
           <GeneralSlider
             key={type}
@@ -340,8 +342,14 @@ export default class DailyData extends Component {
   }
 }
 
-
-
+const styles = StyleSheet.create({
+  text: {
+    color: 'white',
+    fontSize: 24,
+    textAlign: 'center',
+    width: '100%'
+  }
+});
 
 //  TO PRINT THE STORAGE
 
