@@ -94,7 +94,7 @@ export default class DailyData extends Component {
     this.retriveData();
     this.calculateMeans();
     this.interval = setInterval(() => { if (this.isNewDay) { this.newDayReset } }, 5000);
-    this.interval = setInterval(() => { this.lowerMeanNotify() }, 60000); //TODO make without this long interval 
+    setTimeout(() => { console.log(this.lowerMeanNotify()); }, 5000);
   }
 
   retriveData() { //                             Retrives data from AsyncStorage and sets them in State
@@ -317,7 +317,7 @@ export default class DailyData extends Component {
     var loweMeanCategory = categories[lowerMeanIndex]
     Notifications.postLocalNotification({
       title: "Take some time to care about " + loweMeanCategory,
-      body: loweMeanCategory + " has the lowest mean: only " + lowerMean * 5 + "%",
+      body: "It the lowest mean: only " + lowerMean * 5 + "%",
       extra: "data"
     });
   }
