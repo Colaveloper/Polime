@@ -5,6 +5,10 @@ import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 
 export default class GeneralSlider extends Component {
 
+  state = {
+    isSliding: false
+  }
+
   render() {
     const type = this.props.typeData.type
     const score = this.props.typeData.defaultScore + this.props.typeData.goalScore
@@ -19,7 +23,7 @@ export default class GeneralSlider extends Component {
           step={1}
           maximumValue={20}
           thumbTintColor={score > this.props.typeData.meanScore ? this.props.typeData.color : 'grey'}
-          value={parseInt(this.props.typeData.meanScore) + .3}
+          value={parseInt(this.props.typeData.meanScore)}
           animateTransitions={true}
           minimumTrackTintColor={'rgba(0, 0, 0, 0)'}
           maximumTrackTintColor={'rgba(0, 0, 0, 0)'}
@@ -39,6 +43,7 @@ export default class GeneralSlider extends Component {
           disabled={false}
           maximumValue={20}
           thumbTintColor={'rgba(0, 0, 0, 0)'}
+          thumbTouchSize={{ width: 150, height: 150 }}
           value={score}
           animateTransitions={true}
           onValueChange={(defaultScore) => {
@@ -46,7 +51,8 @@ export default class GeneralSlider extends Component {
               this.props.slidingHandler(defaultScore, type, 'defaultScore');
             }
           }}
-          onSlidingComplete={(s) => this.props.calculateMeans()}
+          onSlidingStart={() => !this.state.isSliding ? this.setState({ 'isSliding': true }) : null}
+          onSlidingComplete={(s) => (this.props.calculateMeans(), this.setState({ 'isSliding': false }))}
           // has to be false as long as the slider is in a scrollview 
           allowTouchTrack={false}
           minimumTrackTintColor={this.props.typeData.color}
@@ -55,10 +61,18 @@ export default class GeneralSlider extends Component {
             height: 15,
             borderRadius: 10,
           }}
-          thumbStyle={{
+          thumbStyle={this.state.isSliding ? {
+            width: 5,
+            height: 25,
+            borderRadius: 10,
+            borderWidth: 15,
+            borderLeftWidth: 0,
+            borderColor: this.props.typeData.color,
+          } : {
             width: 0,
             height: 5,
-            zIndex: 2,
+            borderWidth: 0,
+            borderColor: 'rgba(0, 0, 0, 0)',
           }}
         />
 
@@ -143,7 +157,7 @@ const styles = StyleSheet.create({ //            Styling
     backgroundColor: 'white',
     width: '100%',
     borderStyle: 'solid',
-    borderColor: 'grey',
+    borderColor: "gray",
     borderWidth: 5,
     borderBottomWidth: 1,
     borderRadius: 20,
